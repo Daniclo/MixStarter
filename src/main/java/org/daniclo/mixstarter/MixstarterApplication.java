@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MixstarterApplication extends Application {
     @Override
@@ -14,7 +15,7 @@ public class MixstarterApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/mixstarter.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setMaximized(true);
-        Image image = new Image(getClass().getResourceAsStream("icons/MixLogo.png"));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("icons/MixLogo.png")));
         stage.getIcons().add(image);
         stage.setTitle("MixStarter");
         stage.setScene(scene);
