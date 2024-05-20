@@ -12,11 +12,11 @@ import java.util.Objects;
 public class MixstarterApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/mixstarter.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+        FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setMaximized(true);
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("icons/MixLogo.png")));
-        stage.getIcons().add(image);
+        Image stageIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("icons/MixLogo.png")));
+        stage.getIcons().add(stageIcon);
         stage.setTitle("MixStarter");
         stage.setScene(scene);
         stage.show();

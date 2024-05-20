@@ -27,9 +27,11 @@ public class Followers {
     private Timestamp followingDate;
 
     @OneToMany(mappedBy = "followers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<User> followers = new ArrayList<>();
 
     @OneToMany(mappedBy = "followers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<User> followed = new ArrayList<>();
 
 }
