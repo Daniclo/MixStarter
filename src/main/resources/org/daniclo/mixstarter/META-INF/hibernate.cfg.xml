@@ -2,13 +2,16 @@
 <hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/discografica</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">daniel</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!--Database to POJO mapping-->
-
+        <mapping class="org.daniclo.mixstarter.model.Album"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.Comment"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.Followers"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.Post"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.Song"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.Tag"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.User"></mapping>
 
     </session-factory>
 </hibernate-configuration>

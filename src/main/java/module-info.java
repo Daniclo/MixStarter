@@ -3,6 +3,10 @@ module org.daniclo.mixstarter {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires org.hibernate.orm.core;
+    requires java.logging;
+    requires jakarta.persistence;
+    requires static lombok;
 
     opens org.daniclo.mixstarter to javafx.fxml;
     exports org.daniclo.mixstarter;
