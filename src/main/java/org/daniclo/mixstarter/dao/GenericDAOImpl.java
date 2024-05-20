@@ -4,6 +4,7 @@ import org.daniclo.mixstarter.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GenericDAOImpl<T> implements GenericDAO<T> {

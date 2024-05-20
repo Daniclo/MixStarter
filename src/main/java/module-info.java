@@ -7,6 +7,7 @@ module org.daniclo.mixstarter {
     requires java.logging;
     requires jakarta.persistence;
     requires static lombok;
+    requires java.naming;
 
     opens org.daniclo.mixstarter to javafx.fxml;
     exports org.daniclo.mixstarter;

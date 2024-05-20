@@ -1,5 +1,6 @@
 package org.daniclo.mixstarter.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface GenericDAO<T> {
