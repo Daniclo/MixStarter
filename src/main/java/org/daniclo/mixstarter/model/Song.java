@@ -26,12 +26,12 @@ public class Song {
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "album_id_album")
+    @JoinColumn(name = "Album_idAlbum")
     private Album album;
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "tag_id_tag", nullable = false)
+    @JoinColumn(name = "Tag_idTag", nullable = false)
     private Tag tag;
 
     @OneToOne(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)

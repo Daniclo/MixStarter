@@ -23,12 +23,12 @@ public class Comment {
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "post_id_publicacion", nullable = false)
+    @JoinColumn(name = "Publicacion_idPublicacion", nullable = false)
     private Post post;
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "user_id_usuario", nullable = false)
+    @JoinColumn(name = "Usuario_idUsuario", nullable = false)
     private User user;
 
 }

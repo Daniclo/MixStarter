@@ -25,7 +25,7 @@ public class HibernateUtil {
             properties.load(Files.newBufferedReader(Path.of("datasource.properties")));
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(properties)
-                    .configure("META-INF/hibernate.cfg.xml").build();
+                    .configure("org/daniclo/mixstarter/META-INF/hibernate.cfg.xml").build();
 
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
             return metadata.buildSessionFactory();

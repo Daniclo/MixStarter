@@ -27,20 +27,22 @@ public class Post {
     @Column(name = "texto", nullable = false)
     private String text;
 
-    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "Album_idAlbum")
     private Album album;
 
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "song_id_cancion")
+    @JoinColumn(name = "Cancion_idCancion")
     private Song song;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Comment> comments = new ArrayList<>();
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "user_id_usuario", nullable = false)
+    @JoinColumn(name = "Usuario_idUsuario", nullable = false)
     private User user;
 
 }

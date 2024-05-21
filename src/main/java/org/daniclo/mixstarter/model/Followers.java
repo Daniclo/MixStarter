@@ -8,8 +8,6 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "Seguidores")
@@ -20,18 +18,22 @@ import java.util.List;
 public class Followers {
 
     @EmbeddedId
-    private FollowersPK followersPK;
+    private FollowersPK followersPK = new FollowersPK();
 
     @Column(name = "fechaSeguimiento", nullable = false)
     @CreationTimestamp
     private Timestamp followingDate;
 
-    @OneToMany(mappedBy = "followers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @ToString.Exclude
-    private List<User> followers = new ArrayList<>();
+    @MapsId("userFollows")
+    @JoinColumn(name = "idSeguidor")
+    private User follows;
 
-    @OneToMany(mappedBy = "followers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @ToString.Exclude
-    private List<User> followed = new ArrayList<>();
+    @MapsId("userFollowed")
+    @JoinColumn(name = "idSeguido")
+    private User followed;
 
 }

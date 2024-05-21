@@ -36,12 +36,10 @@ public class User {
     private List<Post> posts = new ArrayList<>();
 
     @ToString.Exclude
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "FOLLOWERS_IDSEGUIDOR", referencedColumnName = "IDSEGUIDOR", nullable = false)
-    private Followers followers;
+    @OneToMany(mappedBy = "follows", cascade = CascadeType.ALL)
+    private List<Followers> followers;
 
     @ToString.Exclude
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "FOLLOWED_IDSEGUIDO", referencedColumnName = "IDSEGUIDO", nullable = false)
-    private Followers followed;
+    @OneToMany(mappedBy = "followed", cascade = CascadeType.ALL)
+    private List<Followers> followed;
 }

@@ -18,23 +18,23 @@ import java.util.List;
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_album", nullable = false)
+    @Column(name = "idAlbum", nullable = false)
     private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String name;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "post_id_publicacion")
+    @OneToOne(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
     private Post post;
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "tag_id_tag", nullable = false)
+    @JoinColumn(name = "tag_idtag", nullable = false)
     private Tag tag;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Song> songs = new ArrayList<>();
 
 }

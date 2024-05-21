@@ -13,4 +13,5 @@ module org.daniclo.mixstarter {
     exports org.daniclo.mixstarter;
     exports org.daniclo.mixstarter.controller;
     opens org.daniclo.mixstarter.controller to javafx.fxml;
+    opens org.daniclo.mixstarter.model to org.hibernate.orm.core;
 }
