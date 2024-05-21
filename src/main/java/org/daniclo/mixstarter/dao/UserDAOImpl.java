@@ -28,7 +28,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
         try (Session session = HibernateUtil.getSessionFactory().openSession();) {
             Query<User> query = session.createQuery("from User where username = :username", User.class)
                     .setParameter("username", name);
-            return query.getSingleResult();
+            return query.getSingleResultOrNull();
         }
     }
 

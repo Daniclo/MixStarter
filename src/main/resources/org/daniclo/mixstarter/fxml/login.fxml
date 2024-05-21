@@ -24,7 +24,7 @@
                   <Insets right="100.0" />
                </VBox.margin>
             </HBox>
-            <TextField maxHeight="25.0" maxWidth="300.0" />
+            <TextField fx:id="tfUsername" maxHeight="25.0" maxWidth="300.0" />
             <HBox maxWidth="200.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="200.0" text="Password:" />
@@ -33,11 +33,11 @@
                   <Insets right="100.0" />
                </VBox.margin>
             </HBox>
-            <PasswordField maxHeight="25.0" maxWidth="300.0" />
+            <PasswordField fx:id="tfPassword" maxHeight="25.0" maxWidth="300.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <Button mnemonicParsing="false" text="Login" />
-                  <Button mnemonicParsing="false" text="Register" />
+                  <Button mnemonicParsing="false" onAction="#onLogin" text="Login" />
+                  <Button mnemonicParsing="false" onAction="#onRegister" text="Register" />
                </children>
             </HBox>
          </children>

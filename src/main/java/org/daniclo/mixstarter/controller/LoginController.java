@@ -3,10 +3,13 @@ package org.daniclo.mixstarter.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.daniclo.mixstarter.dao.*;
 import org.daniclo.mixstarter.model.*;
 
 public class LoginController {
+    //region TESTING
     @FXML
     private void onClickTest(){
         TestDataAccess();
@@ -39,5 +42,43 @@ public class LoginController {
         System.out.println(danicloFollowers);
         System.out.println("Siguiendo:");
         System.out.println(danicloFollowing);
+    }
+    //endregion
+
+    @FXML
+    TextField tfUsername;
+    @FXML
+    PasswordField tfPassword;
+
+    @FXML
+    private void onLogin(){
+        if (!tfUsername.getText().isEmpty()){
+          UserDAO userDAO = new UserDAOImpl(User.class);
+          var user = userDAO.getByName(tfUsername.getText());
+          if (user != null){
+              if (tfPassword.getText().equals(user.getPassword()))
+                  System.out.println("LOGIN COMPLETED");
+              else System.err.println("Incorrect password.");
+          }else {
+              System.err.println("The username " + tfUsername.getText() + " does not exists.");
+          }
+        } else System.err.println("Username field must not be empty.");
+    }
+    @FXML
+    private void onRegister(){
+        if (!tfUsername.getText().isEmpty()) {
+            UserDAO userDAO = new UserDAOImpl(User.class);
+            var user = userDAO.getByName(tfUsername.getText());
+            if (user == null){
+                //IMPLEMENT PASSWORD REQUIREMENTS
+                if (!tfPassword.getText().isEmpty()) {
+                    var newUser = new User();
+                    newUser.setUsername(tfUsername.getText());
+                    newUser.setPassword(tfPassword.getText());
+                    userDAO.save(newUser);
+                    System.out.println("User " + newUser.getUsername() + " has been registered correctly.");
+                }else System.err.println("Password requirements not met.");
+            }else System.err.println("User already exists.");
+        }
     }
 }
