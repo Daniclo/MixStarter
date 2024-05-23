@@ -6,6 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
     public AlbumDAOImpl(Class<Album> entityClass) {
@@ -14,9 +18,19 @@ public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
 
     @Override
     public List<Album> getAlbums() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession();){
-            Query<Album> query = session.createQuery("from Album", Album.class);
-            return query.getResultList();
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Album>> value = service.submit(()->{
+            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Album> query = session.createQuery("from Album", Album.class);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getLocalizedMessage());
         }
+        return null;
     }
 }

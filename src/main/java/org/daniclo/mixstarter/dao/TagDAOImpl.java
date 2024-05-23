@@ -7,6 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
     public TagDAOImpl(Class<Tag> entityClass) {
@@ -15,9 +19,19 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
 
     @Override
     public List<Tag> getTags() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession();){
-            Query<Tag> query = session.createQuery("from Tag", Tag.class);
-            return query.getResultList();
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Tag>> value = service.submit(()->{
+            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Tag> query = session.createQuery("from Tag", Tag.class);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getLocalizedMessage());
         }
+        return null;
     }
 }

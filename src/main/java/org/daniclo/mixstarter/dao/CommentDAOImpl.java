@@ -7,6 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDAO{
     public CommentDAOImpl(Class<Comment> entityClass) {
@@ -15,9 +19,19 @@ public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDA
 
     @Override
     public List<Comment> getComments() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession();){
-            Query<Comment> query = session.createQuery("from Comment", Comment.class);
-            return query.getResultList();
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Comment>> value = service.submit(()->{
+            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Comment> query = session.createQuery("from Comment", Comment.class);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getLocalizedMessage());
         }
+        return null;
     }
 }

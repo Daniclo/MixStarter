@@ -7,6 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
     public PostDAOImpl(Class<Post> entityClass) {
@@ -15,9 +19,19 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
 
     @Override
     public List<Post> getPosts() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession();){
-            Query<Post> query = session.createQuery("from Post", Post.class);
-            return query.getResultList();
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Post>> value = service.submit(()->{
+            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Post> query = session.createQuery("from Post", Post.class);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getLocalizedMessage());
         }
+        return null;
     }
 }
