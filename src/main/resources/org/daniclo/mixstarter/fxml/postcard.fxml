@@ -13,21 +13,21 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="600.0" spacing="15.0">
                <children>
-                  <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="32.0" fitWidth="48.0" onMouseClicked="#showUser" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/Social.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lbUsername" text="Username" />
+                  <Label fx:id="lbUsername" onMouseClicked="#showUser" text="Username" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+            <VBox onMouseClicked="#showPost" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <children>
-                  <Label fx:id="lbPostTitle" prefHeight="18.0" prefWidth="678.0" text="Post title" />
-                  <Label fx:id="lbPostText" prefHeight="123.0" prefWidth="579.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut neque vitae sem sollicitudin rhoncus. Duis luctus velit sit amet dui aliquam posuere. Suspendisse sem tortor, egestas at aliquet id, viverra dapibus neque. Fusce fermentum mollis mollis. Nunc id magna rhoncus, varius lectus ac, facilisis massa. Proin viverra commodo egestas. Phasellus dolor nisi, fermentum eget tincidunt eu, iaculis vitae felis. Donec in leo non urna pharetra sagittis sed nec sem. Donec hendrerit orci cursus nulla faucibus, a tristique dui finibus. Quisque non turpis sem. Morbi velit lectus, accumsan ac consectetur quis, venenatis et justo. Pellentesque pulvinar id turpis non luctus." wrapText="true" />
+                  <Label fx:id="lbPostTitle" onMouseClicked="#showPost" prefHeight="18.0" prefWidth="678.0" text="Post title" />
+                  <Label fx:id="lbPostText" onMouseClicked="#showPost" prefHeight="123.0" prefWidth="579.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut neque vitae sem sollicitudin rhoncus. Duis luctus velit sit amet dui aliquam posuere. Suspendisse sem tortor, egestas at aliquet id, viverra dapibus neque. Fusce fermentum mollis mollis. Nunc id magna rhoncus, varius lectus ac, facilisis massa. Proin viverra commodo egestas. Phasellus dolor nisi, fermentum eget tincidunt eu, iaculis vitae felis. Donec in leo non urna pharetra sagittis sed nec sem. Donec hendrerit orci cursus nulla faucibus, a tristique dui finibus. Quisque non turpis sem. Morbi velit lectus, accumsan ac consectetur quis, venenatis et justo. Pellentesque pulvinar id turpis non luctus." wrapText="true" />
                </children>
                <opaqueInsets>
                   <Insets />

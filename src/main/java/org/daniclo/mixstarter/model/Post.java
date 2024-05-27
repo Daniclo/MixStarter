@@ -36,7 +36,7 @@ public class Post {
     @JoinColumn(name = "Cancion_idCancion")
     private Song song;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Comment> comments = new ArrayList<>();
 

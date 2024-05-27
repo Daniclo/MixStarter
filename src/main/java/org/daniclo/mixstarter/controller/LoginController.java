@@ -150,7 +150,6 @@ public class LoginController {
             Scene scene = new Scene(root,900,600);
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.setScene(scene);
-            stage.setMaximized(true);
             stage.setResizable(true);
             stage.show();
         } catch (IOException e) {

@@ -28,6 +28,9 @@ public class User {
     @Column(name = "contraseña", nullable = false)
     private String password;
 
+    @Column(name = "likesPublicos", nullable = false)
+    private boolean publicLikes;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<Comment> comments = new ArrayList<>();
