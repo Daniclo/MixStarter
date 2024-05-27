@@ -42,6 +42,7 @@ public class MixstarterController implements Initializable {
     }
 
     private void updateSocialFeed() {
+        //Change this for the posts decided by the algorithm for this user in particular later on.
         List<Post> postsToShow = postDAO.getPosts();
         if (!postsToShow.isEmpty()) initializePost(postsToShow);
     }
