@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.PostViewController">
+   <top>
+      <VBox prefHeight="107.0" prefWidth="600.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbTitle" prefHeight="18.0" prefWidth="600.0" text="Title" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lbAuthor" prefWidth="600.0" text="Made by author" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0" text="Like post" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </top>
+   <center>
+      <ScrollPane prefHeight="466.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox prefHeight="458.0" prefWidth="1062.0" spacing="5.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label prefHeight="18.0" prefWidth="569.0" text="Description:" />
+                  <Label fx:id="lbText" prefHeight="253.0" prefWidth="574.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum arcu et lobortis sagittis. Quisque volutpat efficitur nibh sed ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque pharetra sit amet ligula ut sollicitudin. Vivamus a malesuada lorem, sit amet facilisis quam. Mauris varius pharetra cursus. Suspendisse tellus mi, semper id nibh porttitor, gravida pretium nunc.Vestibulum vulputate massa pellentesque velit suscipit, non ultricies leo tincidunt. Nunc ligula mi, sagittis sit amet leo ac, dignissim aliquam felis. Donec mi turpis, sollicitudin vitae nisl id, lobortis ullamcorper turpis. Nulla egestas nisl non dolor suscipit rhoncus. Pellentesque efficitur leo aliquam nibh convallis venenatis. Proin viverra posuere nisl, non imperdiet nunc volutpat eu. Duis at consectetur sapien. Nunc in velit turpis. In hendrerit efficitur orci. Pellentesque tempus magna vitae velit rhoncus molestie a vitae nulla." wrapText="true" />
+                  <Label text="Comments:" />
+                  <VBox fx:id="commentParent" prefHeight="200.0" prefWidth="100.0" spacing="5.0" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
