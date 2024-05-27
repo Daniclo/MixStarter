@@ -33,7 +33,7 @@ public class Album {
     @JoinColumn(name = "tag_idtag", nullable = false)
     private Tag tag;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Song> songs = new ArrayList<>();
 

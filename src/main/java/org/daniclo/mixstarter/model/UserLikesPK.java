@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class FollowersPK implements Serializable {
-    private long userFollows;
-    private long userFollowed;
+public class UserLikesPK implements Serializable {
+    private long userKey;
+    private long likedKey;
 }

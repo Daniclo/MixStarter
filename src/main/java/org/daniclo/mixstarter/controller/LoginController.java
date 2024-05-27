@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
 import org.daniclo.mixstarter.dao.*;
 import org.daniclo.mixstarter.model.*;
+import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.IOException;
 
@@ -51,6 +52,9 @@ public class LoginController {
         System.out.println(danicloFollowers);
         System.out.println("Siguiendo:");
         System.out.println(danicloFollowing);
+        System.out.println("Likes:");
+        System.out.println(songDAO.getSongsLikedByUser(userDAO.getByName("daniclo")));
+        System.out.println(albumDAO.getAlbumsLikedByUser(userDAO.getByName("daniclo")));
     }
     //endregion
 
@@ -69,7 +73,7 @@ public class LoginController {
           if (user != null){
               if (tfPassword.getText().equals(user.getPassword())){
                   String message = "LOGIN COMPLETED";
-                  startApplication(event, message);
+                  startApplication(event, message, user);
               }
               else {
                   System.err.println("Incorrect password.");
@@ -96,7 +100,7 @@ public class LoginController {
                     newUser.setPassword(tfPassword.getText());
                     userDAO.save(newUser);
                     String message = "User " + newUser.getUsername() + " has been registered correctly.";
-                    startApplication(event, message);
+                    startApplication(event, message, newUser);
                 } else {
                     System.err.println("Password must be at least 8 characters long, contain one capital letter and number and be different from the username.");
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Password must be at least 8 characters long," +
@@ -116,7 +120,7 @@ public class LoginController {
 
     private boolean passwordCriteriaMet(String password) {
         //Longer than 8
-        if (password.length() > 8) return false;
+        if (password.length() < 8) return false;
         //Can't be same as username
         if (tfUsername.getText().equals(password)) return false;
         //Must have at least 1 capital letter and 1 number
@@ -131,13 +135,14 @@ public class LoginController {
         return true;
     }
 
-    private void startApplication(ActionEvent event, String message){
+    private void startApplication(ActionEvent event, String message, User user){
+        LoginData.setCurrentUser(user);
         System.out.println(message);
         lbLoginInfo.setText(message);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/mixstarter.fxml"));
@@ -149,7 +154,7 @@ public class LoginController {
             stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
     }
 }

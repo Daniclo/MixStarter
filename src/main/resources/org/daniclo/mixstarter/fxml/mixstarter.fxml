@@ -35,11 +35,10 @@
                <content>
                   <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
                      <children>
-                        <ScrollPane prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane prefHeight="447.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <HBox fx:id="albumParent" prefHeight="100.0" prefWidth="2132.0" />
-                           </content>
-                        </ScrollPane>
+                              <VBox fx:id="albumParent" alignment="CENTER" prefHeight="524.0" prefWidth="929.0" spacing="10.0" />
+                           </content></ScrollPane>
                      </children>
                   </AnchorPane>
                </content>

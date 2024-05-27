@@ -11,6 +11,8 @@
         <mapping class="org.daniclo.mixstarter.model.Song"></mapping>
         <mapping class="org.daniclo.mixstarter.model.Tag"></mapping>
         <mapping class="org.daniclo.mixstarter.model.User"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.UserLikesSong"></mapping>
+        <mapping class="org.daniclo.mixstarter.model.UserLikesAlbum"></mapping>
 
     </session-factory>
 </hibernate-configuration>

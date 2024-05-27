@@ -24,6 +24,7 @@ public class User {
     @Column(name = "nombre", nullable = false)
     private String username;
 
+    @ToString.Exclude
     @Column(name = "contraseña", nullable = false)
     private String password;
 
