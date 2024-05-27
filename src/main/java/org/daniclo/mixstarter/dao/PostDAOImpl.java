@@ -30,7 +30,7 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
         try {
             return value.get();
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         return null;
     }

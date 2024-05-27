@@ -30,7 +30,7 @@ public class HibernateUtil {
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
             return metadata.buildSessionFactory();
         } catch (IOException e) {
-            System.out.println("No existe el fichero properties.");
+            System.err.println("No existe el fichero properties.");
         }
         return null;
     }

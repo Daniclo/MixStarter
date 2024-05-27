@@ -31,7 +31,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         try {
             return value.get();
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         return Optional.empty();
     }
@@ -49,7 +49,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
                 } catch (RuntimeException e) {
                     if(tx != null)
                         tx.rollback();
-                    System.err.println(e.getLocalizedMessage());
+                    System.err.println(e.getMessage());
                 }
             }
         });

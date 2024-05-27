@@ -6,9 +6,9 @@ import org.daniclo.mixstarter.model.Song;
 
 public class SongCardController {
     @FXML
-    Label lbTitle;
+    private Label lbTitle;
     @FXML
-    Label lbAuthor;
+    private Label lbAuthor;
 
     public void setData(Song song){
         lbTitle.setText(song.getName());

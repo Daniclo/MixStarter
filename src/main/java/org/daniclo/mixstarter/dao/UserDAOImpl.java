@@ -32,7 +32,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
         try {
             return value.get();
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         return null;
     }
@@ -51,7 +51,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
         try {
             return value.get();
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         return null;
     }
@@ -76,7 +76,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
         try {
             return value.get();
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         return null;
     }
@@ -101,7 +101,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
         try {
             return value.get();
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
         }
         return null;
     }

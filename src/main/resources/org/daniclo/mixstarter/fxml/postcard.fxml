@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.daniclo.mixstarter.fxml.Postcard"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.PostCardController">
+   <children>
+      <VBox prefHeight="150.0" prefWidth="609.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="600.0" spacing="15.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Social.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lbUsername" text="Username" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <Label fx:id="lbPostTitle" prefHeight="18.0" prefWidth="678.0" text="Post title" />
+                  <Label fx:id="lbPostText" prefHeight="123.0" prefWidth="579.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut neque vitae sem sollicitudin rhoncus. Duis luctus velit sit amet dui aliquam posuere. Suspendisse sem tortor, egestas at aliquet id, viverra dapibus neque. Fusce fermentum mollis mollis. Nunc id magna rhoncus, varius lectus ac, facilisis massa. Proin viverra commodo egestas. Phasellus dolor nisi, fermentum eget tincidunt eu, iaculis vitae felis. Donec in leo non urna pharetra sagittis sed nec sem. Donec hendrerit orci cursus nulla faucibus, a tristique dui finibus. Quisque non turpis sem. Morbi velit lectus, accumsan ac consectetur quis, venenatis et justo. Pellentesque pulvinar id turpis non luctus." wrapText="true" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

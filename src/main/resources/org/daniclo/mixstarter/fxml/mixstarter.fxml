@@ -45,7 +45,14 @@
           </Tab>
           <Tab>
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox fx:id="postParent" alignment="CENTER" prefHeight="486.0" prefWidth="591.0" spacing="10.0" />
+                           </content>
+                        </ScrollPane>
+                     </children></AnchorPane>
             </content>
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
