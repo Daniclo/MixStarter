@@ -19,14 +19,15 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <Label fx:id="lbAuthor" onMouseClicked="#showUser" prefWidth="600.0" text="Made by author" textAlignment="CENTER">
+                  <Label fx:id="lbAuthor" onMouseClicked="#showUser" prefHeight="35.0" prefWidth="323.0" text="Made by author" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0" text="Like post" />
+                  <Label fx:id="lbTag" prefHeight="34.0" prefWidth="151.0" text="Tag" textAlignment="CENTER" />
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="143.0" text="Like post" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />

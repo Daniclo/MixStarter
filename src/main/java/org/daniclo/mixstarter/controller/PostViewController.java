@@ -7,12 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
 import org.daniclo.mixstarter.model.Comment;
 import org.daniclo.mixstarter.model.Post;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,13 +32,19 @@ public class PostViewController {
     private Label lbTitle;
 
     @FXML
+    private Label lbTag;
+
+    @FXML
     private VBox commentParent;
+
 
     public void setData(Post post){
         this.post = post;
         lbTitle.setText(post.getTitle());
         lbAuthor.setText("Made by " + post.getUser().getUsername());
         lbText.setText(post.getText());
+        if (post.getAlbum() != null) lbTag.setText(post.getAlbum().getTag().getName().toUpperCase());
+        else lbTag.setText(post.getSong().getTag().getName().toUpperCase());
         List<Comment> comments = post.getComments();
         initializeComments(comments);
     }

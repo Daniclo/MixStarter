@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.daniclo.mixstarter.MixstarterApplication;
@@ -33,6 +36,15 @@ public class MixstarterController implements Initializable {
     @FXML
     private VBox postParent;
 
+    @FXML
+    private Button btSearch;
+
+    @FXML
+    private ChoiceBox<String> chbSearch;
+
+    @FXML
+    private TextField tfSearch;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -48,6 +60,7 @@ public class MixstarterController implements Initializable {
         System.out.println(user);
         updateAlbumFeed();
         updateSocialFeed();
+        initializeSearchChoiceBox();
     }
 
     private void updateSocialFeed() {
@@ -68,6 +81,12 @@ public class MixstarterController implements Initializable {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private void initializeSearchChoiceBox() {
+        chbSearch.getItems().add("Post");
+        chbSearch.getItems().add("User");
+        chbSearch.getItems().add("Tag");
     }
 
     private void updateAlbumFeed() {

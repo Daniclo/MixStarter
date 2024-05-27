@@ -231,4 +231,20 @@
          </padding>
       </HBox>
    </bottom>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="46.0" prefWidth="586.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <TextField fx:id="tfSearch" promptText="Search something" />
+                  <ChoiceBox fx:id="chbSearch" prefWidth="150.0" />
+                  <Button fx:id="btSearch" mnemonicParsing="false" text="Search" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
