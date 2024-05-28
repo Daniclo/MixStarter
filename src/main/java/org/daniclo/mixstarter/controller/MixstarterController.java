@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
@@ -104,6 +105,7 @@ public class MixstarterController implements Initializable {
 
     private void initializeAlbum(List<Song> songs, String albumTitle) {
         Label title = new Label("Album: " + albumTitle);
+        title.setTextFill(Paint.valueOf("#07b0f2"));
         albumParent.getChildren().add(title);
         HBox hBox = new HBox();
         hBox.setSpacing(15);

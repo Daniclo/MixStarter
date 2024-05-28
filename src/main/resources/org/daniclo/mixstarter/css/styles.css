@@ -1,0 +1,18 @@
+.border{
+    -fx-border-style: solid;
+    -fx-border-color: #AB41D9;
+    -fx-border-radius: 25px;
+}
+.text{
+    -fx-text-fill: #07b0f2;
+    -fx-font-family: 'ABeeZee';
+    -fx-font-weight: 400;
+}
+.bigText{
+    -fx-text-fill: #AB41D9;
+    -fx-font-family: 'Gabriola';
+    -fx-font-weight: 700;
+}
+.background{
+    -fx-background-color: #040625;
+}

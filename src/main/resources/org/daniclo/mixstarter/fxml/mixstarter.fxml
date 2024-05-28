@@ -21,9 +21,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.MixstarterController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.MixstarterController">
    <top>
-      <TabPane prefHeight="414.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="TOP_CENTER">
+      <TabPane prefHeight="414.0" prefWidth="600.0" styleClass="background" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="TOP_CENTER">
         <tabs>
           <Tab>
             <content>
@@ -41,9 +41,9 @@
                <content>
                   <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
                      <children>
-                        <ScrollPane prefHeight="447.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane prefHeight="447.0" prefWidth="600.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <VBox fx:id="albumParent" alignment="CENTER" prefHeight="524.0" prefWidth="929.0" spacing="10.0" />
+                              <VBox fx:id="albumParent" alignment="CENTER" prefHeight="524.0" prefWidth="929.0" spacing="10.0" styleClass="background" />
                            </content></ScrollPane>
                      </children>
                   </AnchorPane>
@@ -51,11 +51,11 @@
           </Tab>
           <Tab>
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background">
                      <children>
-                        <ScrollPane prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane prefHeight="370.0" prefWidth="600.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <VBox fx:id="postParent" alignment="CENTER" prefHeight="486.0" prefWidth="591.0" spacing="10.0" />
+                              <VBox fx:id="postParent" alignment="CENTER" prefHeight="486.0" prefWidth="591.0" spacing="10.0" styleClass="background" />
                            </content>
                         </ScrollPane>
                      </children></AnchorPane>
@@ -86,13 +86,13 @@
                      <children>
                         <ScrollPane prefHeight="372.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <Accordion prefHeight="493.0" prefWidth="1920.0">
+                              <Accordion prefHeight="493.0" prefWidth="1920.0" styleClass="background" stylesheets="@../css/styles.css">
                                 <panes>
                                   <TitledPane animated="false" text="User options">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@../css/styles.css">
                                              <children>
-                                                <VBox prefHeight="490.0" prefWidth="584.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <VBox prefHeight="490.0" prefWidth="584.0" spacing="10.0" stylesheets="@../css/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
                                                       <Button mnemonicParsing="false" text="See your profile" />
                                                       <Separator prefWidth="200.0" />
@@ -133,11 +133,11 @@
                                           </AnchorPane>
                                     </content>
                                   </TitledPane>
-                                  <TitledPane animated="false" text="Audio options">
+                                  <TitledPane animated="false" styleClass="background" text="Audio options">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background" stylesheets="@../css/styles.css">
                                              <children>
-                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="background" stylesheets="@../css/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
                                                       <Label text="Select your output device" />
                                                       <ChoiceBox prefHeight="26.0" prefWidth="500.0" />
@@ -175,16 +175,16 @@
       </TabPane>
    </top>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="37.0" prefWidth="600.0" spacing="50.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="37.0" prefWidth="600.0" spacing="50.0" styleClass="background" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="48.0" prefWidth="146.0">
+            <VBox alignment="CENTER" prefHeight="48.0" prefWidth="146.0" styleClass="background">
                <children>
                   <Slider />
                   <ProgressBar prefWidth="200.0" progress="0.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="0:00" textAlignment="CENTER" />
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="background">
                <children>
                   <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
                      <graphic>
@@ -215,7 +215,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" styleClass="background">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -232,7 +232,7 @@
       </HBox>
    </bottom>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="46.0" prefWidth="586.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                <padding>

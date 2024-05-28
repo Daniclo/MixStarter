@@ -54,7 +54,7 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
         return null;
     }
 
-    //Tengo dudas sobre esto pero bueno veremos. Efectivamente, las dudas estaban justificadas (no va)
+    //DIVIDIR EN 2 CONSULTAS
     @Override
     public List<Post> getPostsByTag(String tag) {
         ExecutorService service = Executors.newSingleThreadExecutor();
@@ -74,14 +74,13 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
         return null;
     }
 
-    //Buscará esto aunque no sea exactamente igual???? No, no lo hace xd.
     @Override
     public List<Post> getPostsByTitle(String title) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Post>> value = service.submit(()->{
             try (Session session = HibernateUtil.getSessionFactory().openSession();){
                 Query<Post> query = session.createQuery("from Post where title like :title", Post.class)
-                        .setParameter("title",title);
+                        .setParameter("title","%"+title+"%");
                 return query.getResultList();
             }
         });
