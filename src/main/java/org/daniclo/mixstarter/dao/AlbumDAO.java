@@ -8,4 +8,5 @@ import java.util.List;
 public interface AlbumDAO extends GenericDAO<Album> {
     List<Album> getAlbums();
     List<Album> getAlbumsLikedByUser(User user);
+    List<Album> getAlbumsByTag(String tag);
 }

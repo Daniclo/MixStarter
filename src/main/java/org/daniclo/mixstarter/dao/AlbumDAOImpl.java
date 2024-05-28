@@ -58,4 +58,23 @@ public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
         }
         return null;
     }
+
+    @Override
+    public List<Album> getAlbumsByTag(String tag) {
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Album>> value = service.submit(()->{
+            try(Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Album> query = session.createQuery("from Album where tag.name = :tag", Album.class)
+                        .setParameter("tag",tag);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 }

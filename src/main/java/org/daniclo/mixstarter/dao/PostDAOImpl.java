@@ -54,26 +54,6 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
         return null;
     }
 
-    //DIVIDIR EN 2 CONSULTAS
-    @Override
-    public List<Post> getPostsByTag(String tag) {
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        Future<List<Post>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
-                Query<Post> query = session.createQuery("from Post where album.tag.name = :tag or song.tag.name = :tag", Post.class)
-                        .setParameter("tag",tag);
-                return query.getResultList();
-            }
-        });
-        service.shutdown();
-        try {
-            return value.get();
-        } catch (InterruptedException | ExecutionException e) {
-            System.err.println(e.getMessage());
-        }
-        return null;
-    }
-
     @Override
     public List<Post> getPostsByTitle(String title) {
         ExecutorService service = Executors.newSingleThreadExecutor();

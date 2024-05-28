@@ -61,4 +61,23 @@ public class SongDAOImpl extends GenericDAOImpl<Song> implements SongDAO {
         }
         return null;
     }
+
+    @Override
+    public List<Song> getSongsByTag(String tag) {
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Song>> value = service.submit(()->{
+            try(Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Song> query = session.createQuery("from Song where tag.name = :tag", Song.class)
+                        .setParameter("tag",tag);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 }
