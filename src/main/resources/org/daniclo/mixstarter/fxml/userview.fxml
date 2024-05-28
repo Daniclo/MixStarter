@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,16 +9,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.UserViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.UserViewController">
    <top>
-      <VBox alignment="TOP_CENTER" prefHeight="96.0" prefWidth="600.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="96.0" prefWidth="600.0" spacing="5.0" styleClass="background" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lbUsername" text="Username">
+            <Label fx:id="lbUsername" styleClass="bigText" text="Username">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btFollow" mnemonicParsing="false" text="Follow" />
+            <Button fx:id="btFollow" mnemonicParsing="false" text="Follow">
+               <styleClass>
+                  <String fx:value="fieldBackground" />
+                  <String fx:value="border" />
+                  <String fx:value="text" />
+                  <String fx:value="selection" />
+                  <String fx:value="mouse-moved" />
+               </styleClass></Button>
          </children>
          <opaqueInsets>
             <Insets />
@@ -30,20 +38,20 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="480.0" prefWidth="1929.0" spacing="5.0">
+            <VBox prefHeight="480.0" prefWidth="1929.0" spacing="5.0" styleClass="background">
                <children>
-                  <Label fx:id="lbPosts" prefHeight="27.0" prefWidth="99.0" text="Published" textAlignment="CENTER">
+                  <Label fx:id="lbPosts" prefHeight="27.0" prefWidth="99.0" styleClass="text" text="Published" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <VBox fx:id="postParent" prefHeight="200.0" prefWidth="100.0" />
-                  <Label fx:id="lbLikedPosts" text="Liked" textAlignment="CENTER">
+                  <VBox fx:id="postParent" prefHeight="200.0" prefWidth="100.0" styleClass="background" />
+                  <Label fx:id="lbLikedPosts" styleClass="text" text="Liked" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <VBox fx:id="likedPostParent" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="likedPostParent" prefHeight="200.0" prefWidth="100.0" styleClass="background" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

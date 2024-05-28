@@ -10,7 +10,7 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.PostCardController">
    <children>
-      <VBox prefHeight="150.0" prefWidth="609.0">
+      <VBox prefHeight="150.0" prefWidth="609.0" HBox.hgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="600.0" spacing="15.0">
                <children>
@@ -19,7 +19,11 @@
                         <Image url="@../icons/Social.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lbUsername" onMouseClicked="#showUser" styleClass="text" text="Username" />
+                  <Label fx:id="lbUsername" onMouseClicked="#showUser" text="Username">
+                     <styleClass>
+                        <String fx:value="text" />
+                        <String fx:value="text-mouse-moved" />
+                     </styleClass></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -27,8 +31,16 @@
             </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <children>
-                  <Label fx:id="lbPostTitle" onMouseClicked="#showPost" prefHeight="18.0" prefWidth="678.0" styleClass="text" text="Post title" />
-                  <Label fx:id="lbPostText" onMouseClicked="#showPost" prefHeight="123.0" prefWidth="579.0" styleClass="text" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut neque vitae sem sollicitudin rhoncus. Duis luctus velit sit amet dui aliquam posuere. Suspendisse sem tortor, egestas at aliquet id, viverra dapibus neque. Fusce fermentum mollis mollis. Nunc id magna rhoncus, varius lectus ac, facilisis massa. Proin viverra commodo egestas. Phasellus dolor nisi, fermentum eget tincidunt eu, iaculis vitae felis. Donec in leo non urna pharetra sagittis sed nec sem. Donec hendrerit orci cursus nulla faucibus, a tristique dui finibus. Quisque non turpis sem. Morbi velit lectus, accumsan ac consectetur quis, venenatis et justo. Pellentesque pulvinar id turpis non luctus." wrapText="true" />
+                  <Label fx:id="lbPostTitle" onMouseClicked="#showPost" prefHeight="18.0" prefWidth="678.0" text="Post title">
+                     <styleClass>
+                        <String fx:value="text" />
+                        <String fx:value="text-mouse-moved" />
+                     </styleClass></Label>
+                  <Label fx:id="lbPostText" onMouseClicked="#showPost" prefHeight="123.0" prefWidth="579.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut neque vitae sem sollicitudin rhoncus. Duis luctus velit sit amet dui aliquam posuere. Suspendisse sem tortor, egestas at aliquet id, viverra dapibus neque. Fusce fermentum mollis mollis. Nunc id magna rhoncus, varius lectus ac, facilisis massa. Proin viverra commodo egestas. Phasellus dolor nisi, fermentum eget tincidunt eu, iaculis vitae felis. Donec in leo non urna pharetra sagittis sed nec sem. Donec hendrerit orci cursus nulla faucibus, a tristique dui finibus. Quisque non turpis sem. Morbi velit lectus, accumsan ac consectetur quis, venenatis et justo. Pellentesque pulvinar id turpis non luctus." wrapText="true">
+                     <styleClass>
+                        <String fx:value="text" />
+                        <String fx:value="text-mouse-moved" />
+                     </styleClass></Label>
                </children>
                <opaqueInsets>
                   <Insets />

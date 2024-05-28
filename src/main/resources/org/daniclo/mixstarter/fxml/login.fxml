@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,43 +13,64 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.LoginController">
    <center>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="1064.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <HBox maxWidth="200.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="200.0" text="Username:" />
+                  <Label prefHeight="18.0" prefWidth="200.0" styleClass="text" stylesheets="@../css/styles.css" text="Username:" />
                </children>
                <VBox.margin>
                   <Insets right="100.0" />
                </VBox.margin>
             </HBox>
-            <TextField fx:id="tfUsername" maxHeight="25.0" maxWidth="300.0" />
+            <TextField fx:id="tfUsername" maxHeight="25.0" maxWidth="300.0" stylesheets="@../css/styles.css">
+               <styleClass>
+                  <String fx:value="text" />
+                  <String fx:value="fieldBackground" />
+                  <String fx:value="selection" />
+               </styleClass></TextField>
             <HBox maxWidth="200.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="200.0" text="Password:" />
+                  <Label prefHeight="18.0" prefWidth="200.0" styleClass="text" stylesheets="@../css/styles.css" text="Password:" />
                </children>
                <VBox.margin>
                   <Insets right="100.0" />
                </VBox.margin>
             </HBox>
-            <PasswordField fx:id="tfPassword" maxHeight="25.0" maxWidth="300.0" />
-            <Label fx:id="lbLoginInfo" alignment="CENTER" prefHeight="115.0" prefWidth="190.0" textAlignment="CENTER" wrapText="true" />
+            <PasswordField fx:id="tfPassword" maxHeight="25.0" maxWidth="300.0" stylesheets="@../css/styles.css">
+               <styleClass>
+                  <String fx:value="text" />
+                  <String fx:value="fieldBackground" />
+                  <String fx:value="selection" />
+               </styleClass></PasswordField>
+            <Label fx:id="lbLoginInfo" alignment="CENTER" prefHeight="115.0" prefWidth="190.0" styleClass="errorText" stylesheets="@../css/styles.css" textAlignment="CENTER" wrapText="true" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onLogin" text="Login" />
-                  <Button mnemonicParsing="false" onAction="#onRegister" text="Register" />
+                  <Button mnemonicParsing="false" onAction="#onLogin" stylesheets="@../css/styles.css" text="Login">
+                     <styleClass>
+                        <String fx:value="border" />
+                        <String fx:value="text" />
+                        <String fx:value="fieldBackground" />
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selection" />
+                     </styleClass></Button>
+                  <Button mnemonicParsing="false" onAction="#onRegister" stylesheets="@../css/styles.css" text="Register">
+                     <styleClass>
+                        <String fx:value="border" />
+                        <String fx:value="text" />
+                        <String fx:value="fieldBackground" />
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selection" />
+                     </styleClass></Button>
                </children>
             </HBox>
          </children>
       </VBox>
    </center>
    <left>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button layoutX="74.0" layoutY="165.0" mnemonicParsing="false" onAction="#onClickTest" text="test" />
-         </children></Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />

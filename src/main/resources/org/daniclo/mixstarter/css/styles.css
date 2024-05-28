@@ -2,9 +2,17 @@
     -fx-border-style: solid;
     -fx-border-color: #AB41D9;
     -fx-border-radius: 25px;
+    -fx-border-width: 3px;
 }
 .text{
     -fx-text-fill: #07b0f2;
+    -fx-prompt-text-fill: #07b0f2;
+    -fx-font-family: 'ABeeZee';
+    -fx-font-weight: 400;
+}
+.errorText{
+    -fx-text-fill: #ff0022;
+    -fx-prompt-text-fill: #ff0022;
     -fx-font-family: 'ABeeZee';
     -fx-font-weight: 400;
 }
@@ -15,4 +23,24 @@
 }
 .background{
     -fx-background-color: #040625;
+}
+.fieldBackground{
+    -fx-background-color: #070b42;
+}
+.mouse-moved:hover{
+    -fx-background-color: #0c1159;
+}
+.text-mouse-moved:hover{
+    -fx-text-fill: #81e2f7;
+    -fx-prompt-text-fill: #81e2f7;
+    -fx-font-family: 'ABeeZee';
+    -fx-font-weight: 400;
+}
+.bigText-mouse-moved:hover{
+    -fx-text-fill: #c95ef7;
+    -fx-font-family: 'Gabriola';
+    -fx-font-weight: 700;
+}
+.selection:focused{
+    -fx-background-color: #0c1159;
 }
