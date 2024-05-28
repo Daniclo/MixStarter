@@ -84,7 +84,7 @@ public class MixstarterController implements Initializable {
     }
 
     private void initializeSearchChoiceBox() {
-        chbSearch.getItems().add("Post");
+        chbSearch.getItems().add("Title");
         chbSearch.getItems().add("User");
         chbSearch.getItems().add("Tag");
     }

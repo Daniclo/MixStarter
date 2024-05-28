@@ -23,6 +23,7 @@ public class UserViewController {
     private final UserDAO userDAO = new UserDAOImpl(User.class);
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
     private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
+    private final PostDAO postDAO = new PostDAOImpl(Post.class);
 
     @FXML
     private Button btFollow;
@@ -34,10 +35,17 @@ public class UserViewController {
     private Label lbUsername;
 
     @FXML
+    private VBox likedPostParent;
+
+    @FXML
     private VBox postParent;
 
     public void setData(User user) {
         lbUsername.setText(user.getUsername());
+        if (!(user.getPosts().isEmpty())){
+            List<Post> publishedPosts = postDAO.getPostsByUser(user.getUsername());
+            initializePost(publishedPosts,postParent);
+        }
         if (user.isPublicLikes()){
             lbLikedPosts.setText("Liked posts");
             List<Song> likedSongs = songDAO.getSongsLikedByUser(user);
@@ -47,7 +55,7 @@ public class UserViewController {
                 if (song.getPost() != null) likedPosts.add(song.getPost());
             for (Album album:likedAlbums)
                 if (album.getPost() != null) likedPosts.add(album.getPost());
-            initializePost(likedPosts);
+            initializePost(likedPosts, likedPostParent);
         }
         else lbLikedPosts.setText("This user has set their likes to private");
         List<User> following = userDAO.getFollowing(LoginData.getCurrentUser().getId());
@@ -57,14 +65,14 @@ public class UserViewController {
         }
     }
 
-    private void initializePost(List<Post> posts) {
+    private void initializePost(List<Post> posts, VBox parent) {
         try{
             for (Post post:posts){
                 FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/postcard.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 PostCardController cardController = fxmlLoader.getController();
                 cardController.setData(post);
-                postParent.getChildren().add(cardBox);
+                parent.getChildren().add(cardBox);
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());

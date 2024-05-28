@@ -34,4 +34,24 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
         }
         return null;
     }
+
+    @Override
+    public List<Post> getPostsByUser(String username) {
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<List<Post>> value = service.submit(()->{
+            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Post> query = session.createQuery("from Post where user.username = :username", Post.class)
+                        .setParameter("username",username);
+                return query.getResultList();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
 }

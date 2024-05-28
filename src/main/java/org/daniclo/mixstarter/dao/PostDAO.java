@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PostDAO extends GenericDAO<Post> {
     List<Post> getPosts();
+    List<Post> getPostsByUser(String username);
 }

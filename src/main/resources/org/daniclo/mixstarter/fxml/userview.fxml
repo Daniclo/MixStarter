@@ -30,13 +30,20 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="postParent" prefHeight="480.0" prefWidth="1920.0" spacing="5.0">
+            <VBox prefHeight="480.0" prefWidth="1929.0" spacing="5.0">
                <children>
-                  <Label fx:id="lbLikedPosts" prefHeight="27.0" prefWidth="99.0" text="Liked posts" textAlignment="CENTER">
+                  <Label fx:id="lbPosts" prefHeight="27.0" prefWidth="99.0" text="Published" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <VBox fx:id="postParent" prefHeight="200.0" prefWidth="100.0" />
+                  <Label fx:id="lbLikedPosts" text="Liked" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="likedPostParent" prefHeight="200.0" prefWidth="100.0" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
