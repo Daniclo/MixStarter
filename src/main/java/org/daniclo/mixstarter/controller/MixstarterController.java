@@ -4,12 +4,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
 import org.daniclo.mixstarter.dao.*;
 import org.daniclo.mixstarter.model.Album;
@@ -21,6 +26,7 @@ import org.daniclo.mixstarter.util.LoginData;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MixstarterController implements Initializable {
@@ -35,9 +41,6 @@ public class MixstarterController implements Initializable {
 
     @FXML
     private VBox postParent;
-
-    @FXML
-    private Button btSearch;
 
     @FXML
     private ChoiceBox<String> chbSearch;
@@ -114,6 +117,25 @@ public class MixstarterController implements Initializable {
                 hBox.getChildren().add(cardBox);
             }
         } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void search(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/search.fxml"));
+            BorderPane parent = fxmlLoader.load();
+            Scene scene = new Scene(parent,600,400);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Image stageIcon = new Image(Objects.requireNonNull(MixstarterApplication.class.getResourceAsStream("icons/MixLogo.png")));
+            stage.getIcons().add(stageIcon);
+            stage.setScene(scene);
+            SearchController controller = fxmlLoader.getController();
+            controller.setData(tfSearch.getText(), chbSearch.getValue());
+            stage.showAndWait();
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }

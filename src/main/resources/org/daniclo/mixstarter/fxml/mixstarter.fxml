@@ -241,7 +241,7 @@
                <children>
                   <TextField fx:id="tfSearch" promptText="Search something" />
                   <ChoiceBox fx:id="chbSearch" prefWidth="150.0" />
-                  <Button fx:id="btSearch" mnemonicParsing="false" text="Search" />
+                  <Button mnemonicParsing="false" onAction="#search" text="Search" />
                </children>
             </HBox>
          </children>
