@@ -17,7 +17,7 @@
          <children>
             <Label fx:id="lbTitle" prefHeight="18.0" prefWidth="600.0" styleClass="bigText" text="Title" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="32.0" />
+                  <Font size="32.0" />
                </font>
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">

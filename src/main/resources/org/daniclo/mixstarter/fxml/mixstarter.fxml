@@ -168,7 +168,7 @@
                                                                </children>
                                                             </HBox>
                                                             <Separator prefWidth="200.0" />
-                                                            <Button mnemonicParsing="false" text="Log out">
+                                                            <Button mnemonicParsing="false" onAction="#logout" text="Log out">
                                                                <styleClass>
                                                                   <String fx:value="fieldBackground" />
                                                                   <String fx:value="text" />
