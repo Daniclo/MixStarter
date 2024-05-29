@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.dao.*;
-import org.daniclo.mixstarter.model.Album;
-import org.daniclo.mixstarter.model.Post;
-import org.daniclo.mixstarter.model.Song;
-import org.daniclo.mixstarter.model.Tag;
+import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.File;
@@ -22,6 +19,7 @@ public class PublishController {
 
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
+    private final UserDAO userDAO = new UserDAOImpl(User.class);
     private final TagDAO tagDAO = new TagDAOImpl(Tag.class);
 
     @FXML
@@ -59,12 +57,14 @@ public class PublishController {
             else {
                 tag = new Tag();
                 tag.setName(tfTag.getText());
+                tagDAO.create(tag);
                 song.setTag(tag);
             }
             if (tag.getName().isEmpty() && tagDAO.findById(1L).isPresent()){
                 tag = tagDAO.findById(1L).get();
                 song.setTag(tag);
             }
+            tagDAO.save(tag);
             songDAO.create(song);
         }
     }
@@ -87,6 +87,7 @@ public class PublishController {
             post.setText(textArea.getText());
             post.setSong(song);
             post.setUser(LoginData.getCurrentUser());
+            userDAO.save(LoginData.getCurrentUser());
             postDAO.create(post);
             closeWindow(event);
         } else if (album != null){

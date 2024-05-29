@@ -31,7 +31,7 @@
                </styleClass>
             </TextField>
             <Label styleClass="text" text="Write something" />
-            <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+            <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" styleClass="text" wrapText="true" />
             <CheckBox fx:id="cbxIsAlbum" mnemonicParsing="false" styleClass="text" text="Is an album?" />
             <Label styleClass="text" text="Choose a tag" />
             <TextField fx:id="tfTag">

@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,7 +27,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -83,11 +81,18 @@ public class MixstarterController implements Initializable {
     }
 
     private void initializeScheduledUpdate() {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleAtFixedRate(this::updateSocialFeed,
+        ScheduledExecutorService sevice1 = Executors.newSingleThreadScheduledExecutor();
+        sevice1.scheduleAtFixedRate(this::updateSocialFeed,
                 5,
                 5,
                 TimeUnit.SECONDS);
+        sevice1.shutdown();
+        ScheduledExecutorService service2 = Executors.newSingleThreadScheduledExecutor();
+        service2.scheduleAtFixedRate(this::updateAlbumFeed,
+                5,
+                5,
+                TimeUnit.SECONDS);
+        service2.shutdown();
         //Stage stage = (Stage)albumParent.getScene().getWindow();
         //stage.setOnCloseRequest(windowEvent -> service.shutdown());
     }
@@ -125,6 +130,7 @@ public class MixstarterController implements Initializable {
     }
 
     private void updateAlbumFeed() {
+        albumParent.getChildren().removeAll();
         //Create/update general album for all liked songs
         List<Song> likedSongs = songDAO.getSongsLikedByUser(user);
         if (!likedSongs.isEmpty()) initializeAlbum(likedSongs,"Liked songs");
@@ -132,6 +138,11 @@ public class MixstarterController implements Initializable {
         List<Album> likedAlbums = albumDAO.getAlbumsLikedByUser(user);
         if (!likedAlbums.isEmpty())
             for (Album album:likedAlbums) initializeAlbum(album.getSongs(),album.getName());
+        if (likedSongs.isEmpty() && likedAlbums.isEmpty()){
+            Label label = new Label("You have not liked any songs or albums\nGo to the social tab to find something you like.");
+            label.setTextFill(Paint.valueOf("#07b0f2"));
+            albumParent.getChildren().add(label);
+        }
     }
 
     private void initializeAlbum(List<Song> songs, String albumTitle) {
@@ -293,5 +304,10 @@ public class MixstarterController implements Initializable {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    @FXML
+    private void onFirstTabClick(){
+        updateAlbumFeed();
+        updateSocialFeed();
     }
 }

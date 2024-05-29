@@ -42,7 +42,7 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
             try (Session session = HibernateUtil.getSessionFactory().openSession();){
                 Query<Tag> query = session.createQuery("from Tag where name = :name", Tag.class)
                         .setParameter("name",name);
-                return query.getSingleResult();
+                return query.getSingleResultOrNull();
             }
         });
         service.shutdown();

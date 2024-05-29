@@ -3,6 +3,7 @@ package org.daniclo.mixstarter.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -11,12 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
-import org.daniclo.mixstarter.dao.PostDAO;
-import org.daniclo.mixstarter.dao.PostDAOImpl;
-import org.daniclo.mixstarter.model.Comment;
-import org.daniclo.mixstarter.model.Post;
+import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.model.*;
+import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,6 +26,14 @@ public class PostViewController {
     private Post post;
 
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
+    private final SongDAO songDAO = new SongDAOImpl(Song.class);
+    private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
+    private final UserDAO userDAO = new UserDAOImpl(User.class);
+    private final GenericDAO<UserLikesSong> userLikesSongDAO = new GenericDAOImpl<>(UserLikesSong.class);
+    private final GenericDAO<UserLikesAlbum> userLikesAlbumDAO = new GenericDAOImpl<>(UserLikesAlbum.class);
+
+    @FXML
+    private Button btLikePost;
 
     @FXML
     private Label lbAuthor;
@@ -51,6 +60,23 @@ public class PostViewController {
         else lbTag.setText(post.getSong().getTag().getName().toUpperCase());
         List<Comment> comments = post.getComments();
         initializeComments(comments);
+        initializeLike();
+    }
+
+    private void initializeLike() {
+        List<Album> likedAlbums = albumDAO.getAlbumsLikedByUser(LoginData.getCurrentUser());
+        List<Song> likedSongs = songDAO.getSongsLikedByUser(LoginData.getCurrentUser());
+        List<Post> likedPosts = new ArrayList<>();
+        for (Song song:likedSongs)
+            if (song.getPost() != null) likedPosts.add(song.getPost());
+        for (Album album:likedAlbums)
+            if (album.getPost() != null) likedPosts.add(album.getPost());
+        for (Post likedPost:likedPosts)
+            if (Objects.equals(likedPost.getId(), post.getId())){
+                btLikePost.setText("Unlike post");
+            }else {
+                btLikePost.setText("Like post");
+            }
     }
 
     private void initializeComments(List<Comment> comments) {
@@ -104,6 +130,46 @@ public class PostViewController {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @FXML
+    private void likePost(){
+        if (btLikePost.getText().equals("Like post")){
+            if (post.getSong() != null){
+                UserLikesSong entity = new UserLikesSong();
+                entity.setUser(LoginData.getCurrentUser());
+                entity.setSong(post.getSong());
+                userDAO.save(LoginData.getCurrentUser());
+                songDAO.save(post.getSong());
+                userLikesSongDAO.create(entity);
+            }
+            if (post.getAlbum() != null){
+                UserLikesAlbum entity = new UserLikesAlbum();
+                entity.setUser(LoginData.getCurrentUser());
+                entity.setAlbum(post.getAlbum());
+                userDAO.save(LoginData.getCurrentUser());
+                albumDAO.save(post.getAlbum());
+                userLikesAlbumDAO.create(entity);
+            }
+        }else {
+            if (post.getSong() != null){
+                UserLikesSong entity = new UserLikesSong();
+                entity.setUser(LoginData.getCurrentUser());
+                entity.setSong(post.getSong());
+                userDAO.save(LoginData.getCurrentUser());
+                songDAO.save(post.getSong());
+                userLikesSongDAO.delete(entity);
+            }
+            if (post.getAlbum() != null){
+                UserLikesAlbum entity = new UserLikesAlbum();
+                entity.setUser(LoginData.getCurrentUser());
+                entity.setAlbum(post.getAlbum());
+                userDAO.save(LoginData.getCurrentUser());
+                albumDAO.save(post.getAlbum());
+                userLikesAlbumDAO.delete(entity);
+            }
+        }
+        initializeLike();
     }
 
     private void reload() {

@@ -5,18 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import org.daniclo.mixstarter.dao.CommentDAO;
-import org.daniclo.mixstarter.dao.CommentDAOImpl;
-import org.daniclo.mixstarter.dao.PostDAO;
-import org.daniclo.mixstarter.dao.PostDAOImpl;
+import org.daniclo.mixstarter.dao.*;
 import org.daniclo.mixstarter.model.Comment;
 import org.daniclo.mixstarter.model.Post;
+import org.daniclo.mixstarter.model.User;
 import org.daniclo.mixstarter.util.LoginData;
 
 public class AddCommentController {
 
     private Post post;
     private final CommentDAO commentDAO = new CommentDAOImpl(Comment.class);
+    private final PostDAO postDAO = new PostDAOImpl(Post.class);
+    private final UserDAO userDAO = new UserDAOImpl(User.class);
 
     @FXML
     private TextArea commentText;
@@ -32,6 +32,8 @@ public class AddCommentController {
         comment.setText(commentText.getText());
         comment.setUser(LoginData.getCurrentUser());
         comment.setPost(post);
+        userDAO.save(LoginData.getCurrentUser());
+        postDAO.save(post);
         commentDAO.create(comment);
         closeWindow(event);
     }

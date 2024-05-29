@@ -32,7 +32,7 @@
                      </styleClass>
                   </Label>
                   <Label fx:id="lbTag" prefHeight="34.0" prefWidth="151.0" styleClass="text" text="Tag" textAlignment="CENTER" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="143.0" text="Like post">
+                  <Button fx:id="btLikePost" mnemonicParsing="false" onAction="#likePost" prefHeight="26.0" prefWidth="143.0" text="Like post">
                      <styleClass>
                         <String fx:value="fieldBackground" />
                         <String fx:value="text" />
