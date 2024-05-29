@@ -20,6 +20,7 @@ public class AddCommentController {
 
     @FXML
     private TextArea commentText;
+
     @FXML
     private void confirm(ActionEvent event) {
         if (commentText.getText().isEmpty()){

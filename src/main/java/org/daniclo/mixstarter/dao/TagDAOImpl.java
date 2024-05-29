@@ -34,4 +34,23 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
         }
         return null;
     }
+
+    @Override
+    public Tag getTagByName(String name) {
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<Tag> value = service.submit(()->{
+            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Tag> query = session.createQuery("from Tag where name = :name", Tag.class)
+                        .setParameter("name",name);
+                return query.getSingleResult();
+            }
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 }

@@ -276,4 +276,22 @@ public class MixstarterController implements Initializable {
         if (numberCounter == 0) return false;
         return true;
     }
+    @FXML
+    private void publish(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/publish.fxml"));
+            HBox parent = fxmlLoader.load();
+            Scene scene = new Scene(parent,600,520);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            Image stageIcon = new Image(Objects.requireNonNull(MixstarterApplication.class.getResourceAsStream("icons/MixLogo.png")));
+            stage.getIcons().add(stageIcon);
+            stage.showAndWait();
+            updateSocialFeed();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }

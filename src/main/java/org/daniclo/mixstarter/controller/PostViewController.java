@@ -95,6 +95,8 @@ public class PostViewController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.setResizable(false);
+            Image stageIcon = new Image(Objects.requireNonNull(MixstarterApplication.class.getResourceAsStream("icons/MixLogo.png")));
+            stage.getIcons().add(stageIcon);
             AddCommentController controller = fxmlLoader.getController();
             controller.setData(post);
             stage.showAndWait();
