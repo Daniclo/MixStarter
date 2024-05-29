@@ -59,7 +59,20 @@
                <children>
                   <Label prefHeight="18.0" prefWidth="569.0" styleClass="text" text="Description:" />
                   <Label fx:id="lbText" prefHeight="253.0" prefWidth="574.0" styleClass="text" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum arcu et lobortis sagittis. Quisque volutpat efficitur nibh sed ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque pharetra sit amet ligula ut sollicitudin. Vivamus a malesuada lorem, sit amet facilisis quam. Mauris varius pharetra cursus. Suspendisse tellus mi, semper id nibh porttitor, gravida pretium nunc.Vestibulum vulputate massa pellentesque velit suscipit, non ultricies leo tincidunt. Nunc ligula mi, sagittis sit amet leo ac, dignissim aliquam felis. Donec mi turpis, sollicitudin vitae nisl id, lobortis ullamcorper turpis. Nulla egestas nisl non dolor suscipit rhoncus. Pellentesque efficitur leo aliquam nibh convallis venenatis. Proin viverra posuere nisl, non imperdiet nunc volutpat eu. Duis at consectetur sapien. Nunc in velit turpis. In hendrerit efficitur orci. Pellentesque tempus magna vitae velit rhoncus molestie a vitae nulla." wrapText="true" />
-                  <Label styleClass="text" text="Comments:" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label styleClass="text" text="Comments:" />
+                        <Button mnemonicParsing="false" onAction="#addComment" text="Comment something">
+                           <styleClass>
+                              <String fx:value="border" />
+                              <String fx:value="fieldBackground" />
+                              <String fx:value="text" />
+                              <String fx:value="selection" />
+                              <String fx:value="mouse-moved" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
                   <VBox fx:id="commentParent" prefHeight="200.0" prefWidth="100.0" spacing="5.0" />
                </children>
             </VBox>

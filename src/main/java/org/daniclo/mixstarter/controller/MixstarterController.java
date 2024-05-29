@@ -88,6 +88,8 @@ public class MixstarterController implements Initializable {
                 5,
                 5,
                 TimeUnit.SECONDS);
+        //Stage stage = (Stage)albumParent.getScene().getWindow();
+        //stage.setOnCloseRequest(windowEvent -> service.shutdown());
     }
 
     private void initializePublicLikes() {

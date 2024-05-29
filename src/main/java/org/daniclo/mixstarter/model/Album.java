@@ -25,15 +25,15 @@ public class Album {
     private String name;
 
     @ToString.Exclude
-    @OneToOne(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "album", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Post post;
 
     @ToString.Exclude
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "tag_idtag", nullable = false)
     private Tag tag;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Song> songs = new ArrayList<>();
 

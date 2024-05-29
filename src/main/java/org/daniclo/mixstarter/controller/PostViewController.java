@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
+import org.daniclo.mixstarter.dao.PostDAO;
+import org.daniclo.mixstarter.dao.PostDAOImpl;
 import org.daniclo.mixstarter.model.Comment;
 import org.daniclo.mixstarter.model.Post;
 
@@ -21,6 +23,8 @@ import java.util.Objects;
 public class PostViewController {
 
     private Post post;
+
+    private final PostDAO postDAO = new PostDAOImpl(Post.class);
 
     @FXML
     private Label lbAuthor;
@@ -50,6 +54,7 @@ public class PostViewController {
     }
 
     private void initializeComments(List<Comment> comments) {
+        commentParent.getChildren().removeAll();
         for (Comment comment:comments){
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/commentcard.fxml"));
@@ -79,5 +84,28 @@ public class PostViewController {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    @FXML
+    private void addComment(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/addcomment.fxml"));
+            HBox parent = fxmlLoader.load();
+            Scene scene = new Scene(parent,600,150);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            AddCommentController controller = fxmlLoader.getController();
+            controller.setData(post);
+            stage.showAndWait();
+            reload();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void reload() {
+        post = postDAO.getPostsByTitle(post.getTitle()).getFirst();
+        setData(post);
     }
 }

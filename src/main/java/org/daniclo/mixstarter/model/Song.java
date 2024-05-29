@@ -25,16 +25,16 @@ public class Song {
     private Integer length;
 
     @ToString.Exclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Album_idAlbum")
     private Album album;
 
     @ToString.Exclude
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "Tag_idTag", nullable = false)
     private Tag tag;
 
-    @OneToOne(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "song", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Post post;
 
 }

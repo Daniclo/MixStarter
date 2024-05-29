@@ -24,11 +24,11 @@ public class Tag {
     @Column(name = "nombre", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.MERGE, orphanRemoval = true)
     @ToString.Exclude
     private List<Album> albums = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.MERGE, orphanRemoval = true)
     @ToString.Exclude
     private List<Song> songs = new ArrayList<>();
 

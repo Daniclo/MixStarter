@@ -24,13 +24,13 @@ public class Followers {
     @CreationTimestamp
     private Timestamp followingDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @ToString.Exclude
     @MapsId("userFollows")
     @JoinColumn(name = "idSeguidor")
     private User follows;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @ToString.Exclude
     @MapsId("userFollowed")
     @JoinColumn(name = "idSeguido")

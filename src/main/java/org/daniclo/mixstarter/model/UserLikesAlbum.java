@@ -17,13 +17,13 @@ public class UserLikesAlbum {
     @EmbeddedId
     private UserLikesPK userLikesPK = new UserLikesPK();
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @ToString.Exclude
     @MapsId("userKey")
     @JoinColumn(name = "Usuario_idUsuario")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @ToString.Exclude
     @MapsId("likedKey")
     @JoinColumn(name = "Album_idAlbum")

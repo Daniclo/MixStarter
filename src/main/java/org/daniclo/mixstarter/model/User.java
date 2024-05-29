@@ -31,19 +31,19 @@ public class User {
     @Column(name = "likesPublicos", nullable = false)
     private boolean publicLikes;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
     @ToString.Exclude
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Post> posts = new ArrayList<>();
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "follows", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "follows", cascade = CascadeType.MERGE)
     private List<Followers> followers;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "followed", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followed", cascade = CascadeType.MERGE)
     private List<Followers> followed;
 }

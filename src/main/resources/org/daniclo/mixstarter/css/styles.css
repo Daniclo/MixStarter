@@ -72,3 +72,13 @@
 .choice-box .label{
     -fx-text-fill: #07b0f2;
 }
+.progress-bar{
+    -fx-background-color: #070b42;
+}
+.progress-bar .bar{
+    -fx-background-color: #07b0f2;
+}
+.text-area .content{
+    -fx-background-color: #070b42;
+    -fx-text-fill: #07b0f2;
+}
