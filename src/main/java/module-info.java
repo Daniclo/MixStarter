@@ -8,6 +8,7 @@ module org.daniclo.mixstarter {
     requires jakarta.persistence;
     requires static lombok;
     requires java.naming;
+    requires dropbox.core.sdk;
 
     opens org.daniclo.mixstarter to javafx.fxml;
     exports org.daniclo.mixstarter;

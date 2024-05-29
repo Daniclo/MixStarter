@@ -83,4 +83,9 @@ public class UserViewController {
             System.err.println(e.getMessage());
         }
     }
+
+    @FXML
+    private void onFollow(){
+        //Qué pocas ganas tengo de hacer este xDDDD. Voy a ver un poquito de dropbox.
+    }
 }

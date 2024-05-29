@@ -18,7 +18,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btFollow" mnemonicParsing="false" text="Follow">
+            <Button fx:id="btFollow" mnemonicParsing="false" onAction="#onFollow" text="Follow">
                <styleClass>
                   <String fx:value="fieldBackground" />
                   <String fx:value="border" />

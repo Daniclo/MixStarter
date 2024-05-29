@@ -86,6 +86,7 @@ public class PublishController {
             post.setTitle(tfTitle.getText());
             post.setText(textArea.getText());
             post.setSong(song);
+            songDAO.save(song);
             post.setUser(LoginData.getCurrentUser());
             userDAO.save(LoginData.getCurrentUser());
             postDAO.create(post);
