@@ -7,10 +7,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -31,9 +28,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MixstarterController implements Initializable {
 
+    private final UserDAO userDAO = new UserDAOImpl(User.class);
     private User user;
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
     private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
@@ -51,6 +53,15 @@ public class MixstarterController implements Initializable {
     @FXML
     private TextField tfSearch;
 
+    @FXML
+    private CheckBox cbxPublicLikes;
+
+    @FXML
+    private TextField tfUpdatePassword;
+
+    @FXML
+    private TextField tfUpdateUsername;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -66,16 +77,32 @@ public class MixstarterController implements Initializable {
         System.out.println(user);
         updateAlbumFeed();
         updateSocialFeed();
+        initializeScheduledUpdate();
         initializeSearchChoiceBox();
+        initializePublicLikes();
+    }
+
+    private void initializeScheduledUpdate() {
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleAtFixedRate(this::updateSocialFeed,
+                5,
+                5,
+                TimeUnit.SECONDS);
+    }
+
+    private void initializePublicLikes() {
+        cbxPublicLikes.setSelected(LoginData.getCurrentUser().isPublicLikes());
     }
 
     private void updateSocialFeed() {
         //Change this for the posts decided by the algorithm for this user in particular later on.
         List<Post> postsToShow = postDAO.getPosts();
         if (!postsToShow.isEmpty()) initializePost(postsToShow);
+        System.out.println("Social feed updated");
     }
 
     private void initializePost(List<Post> posts) {
+        postParent.getChildren().removeAll();
         try{
             for (Post post:posts){
                 FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/postcard.fxml"));
@@ -160,5 +187,91 @@ public class MixstarterController implements Initializable {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    @FXML
+    private void showUser(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/userview.fxml"));
+            BorderPane parent = fxmlLoader.load();
+            Scene scene = new Scene(parent,600,400);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Image stageIcon = new Image(Objects.requireNonNull(MixstarterApplication.class.getResourceAsStream("icons/MixLogo.png")));
+            stage.getIcons().add(stageIcon);
+            stage.setScene(scene);
+            UserViewController controller = fxmlLoader.getController();
+            controller.setData(LoginData.getCurrentUser());
+            stage.showAndWait();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    @FXML
+    private void updateUsername(){
+        if (tfUpdateUsername.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Username field must not be empty.");
+            alert.setTitle("Username was not changed.");
+            alert.showAndWait();
+            return;
+        }
+        List<User> allUsers = userDAO.getUsers();
+        for (User u:allUsers)
+            if (u.getUsername().equals(tfUpdateUsername.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Username must be unique and cannot be the same" +
+                        " as any other existing username.");
+                alert.setTitle("Username was not changed.");
+                alert.showAndWait();
+                return;
+            }
+        LoginData.getCurrentUser().setUsername(tfUpdateUsername.getText());
+        userDAO.save(LoginData.getCurrentUser());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Username was changed successfully. " +
+                "Your new username is " + LoginData.getCurrentUser().getUsername() + ".");
+        alert.setTitle("Username was changed.");
+        alert.showAndWait();
+    }
+    @FXML
+    private void updatePassword(){
+        if (tfUpdatePassword.getText().isEmpty()) return;
+        if (passwordCriteriaMet(tfUpdatePassword.getText())){
+            LoginData.getCurrentUser().setPassword(tfUpdatePassword.getText());
+            userDAO.save(LoginData.getCurrentUser());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Password was changed successfully.");
+            alert.setTitle("Password was changed.");
+            alert.showAndWait();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Password must be at least 8 characters long," +
+                    " contain one capital letter and number and be different from the username.");
+            alert.setTitle("Password requirements not met.");
+            alert.showAndWait();
+        }
+    }
+    @FXML
+    private void updateLikes(){
+        LoginData.getCurrentUser().setPublicLikes(cbxPublicLikes.isSelected());
+        Alert alert;
+        if (LoginData.getCurrentUser().isPublicLikes()){
+            alert = new Alert(Alert.AlertType.INFORMATION, "Your likes are now public");
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION, "Your likes are now private");
+        }
+        alert.setTitle("Like privacy changed.");
+        alert.showAndWait();
+    }
+    private boolean passwordCriteriaMet(String password) {
+        //Longer than 8
+        if (password.length() < 8) return false;
+        //Can't be same as username
+        if (LoginData.getCurrentUser().getUsername().equals(password)) return false;
+        //Must have at least 1 capital letter and 1 number
+        int capitalCounter=0;
+        int numberCounter=0;
+        for(String c:password.split("")){
+            if (c.matches("[0-9]")) numberCounter++;
+            if (c.matches("[A-Z]")) capitalCounter++;
+        }
+        if (capitalCounter == 0) return false;
+        if (numberCounter == 0) return false;
+        return true;
     }
 }

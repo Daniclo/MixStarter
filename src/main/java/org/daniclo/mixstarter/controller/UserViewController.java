@@ -17,6 +17,7 @@ import org.daniclo.mixstarter.util.LoginData;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserViewController {
 
@@ -58,6 +59,10 @@ public class UserViewController {
             initializePost(likedPosts, likedPostParent);
         }
         else lbLikedPosts.setText("This user has set their likes to private");
+        if (Objects.equals(LoginData.getCurrentUser().getId(), user.getId())){
+            btFollow.setText("Yourself");
+            return;
+        }
         List<User> following = userDAO.getFollowing(LoginData.getCurrentUser().getId());
         for (User follow:following){
             if (!follow.getUsername().equals(user.getUsername())) continue;
