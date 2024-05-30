@@ -308,6 +308,5 @@ public class MixstarterController implements Initializable {
     @FXML
     private void onFirstTabClick(){
         updateAlbumFeed();
-        updateSocialFeed();
     }
 }

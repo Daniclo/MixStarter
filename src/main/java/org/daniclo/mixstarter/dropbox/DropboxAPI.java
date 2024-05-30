@@ -7,14 +7,14 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.UploadBuilder;
 import com.dropbox.core.v2.files.WriteMode;
-import org.daniclo.mixstarter.MixstarterApplication;
 
 import java.io.*;
 import java.util.Date;
 
 public class DropboxAPI {
-    private static final String ACCESS_TOKEN =
-            "sl.B2KYGKiTrEl8YwEodaWuEQBkbkRJozgjHg7n36sB3QR9oFAsJTxH6n23zPW6Yh7bLYhX0O7Aqyp-Oz1CjPkbxMnaCH2cG1ZAZCs7d4tVnhCSyTklzc299eo_yF0xpRA9GKmHu9-cSO7TCU71-SIm";
+    private static final String KEY = "s0tv6js5yshjc4x";
+    private static final String SECRET = "4dl6udwohgrrapc";
+    private static final String ACCESS_TOKEN = "";
 
     public static void uploadFile(File file){
         // Create Dropbox client
