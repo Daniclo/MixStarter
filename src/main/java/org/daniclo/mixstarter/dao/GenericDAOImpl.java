@@ -1,6 +1,7 @@
 package org.daniclo.mixstarter.dao;
 
 import org.daniclo.mixstarter.util.HibernateUtil;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

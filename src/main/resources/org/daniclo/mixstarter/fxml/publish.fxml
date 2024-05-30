@@ -51,7 +51,7 @@
                         <String fx:value="mouse-moved" />
                      </styleClass>
                   </Button>
-                  <Label fx:id="lbFiles" prefHeight="26.0" prefWidth="64.0" styleClass="text" text="File location" />
+                  <Label fx:id="lbFiles" prefHeight="26.0" prefWidth="531.0" styleClass="text" text="File location" />
                </children>
             </HBox>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">

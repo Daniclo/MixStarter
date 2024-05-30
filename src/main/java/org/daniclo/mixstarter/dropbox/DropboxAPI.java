@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class DropboxAPI {
-    private static DbxClientV2 getAuth(){
+    public static DbxClientV2 getAuth(){
         try{
             DbxRequestConfig requestConfig = new DbxRequestConfig("MixStarter/1.0");
             DbxAppInfo appInfo = DbxAppInfo.Reader.readFromFile("api.app");

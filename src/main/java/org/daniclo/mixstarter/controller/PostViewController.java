@@ -137,23 +137,37 @@ public class PostViewController {
         if (btLikePost.getText().equals("Like post")){
             if (post.getSong() != null){
                 UserLikesSong entity = new UserLikesSong();
+                UserLikesPK pk = new UserLikesPK();
+                pk.setLikedKey(post.getSong().getId());
+                pk.setUserKey(LoginData.getCurrentUser().getId());
+                entity.setUserLikesPK(pk);
                 entity.setUser(LoginData.getCurrentUser());
                 entity.setSong(post.getSong());
                 userDAO.save(LoginData.getCurrentUser());
                 songDAO.save(post.getSong());
                 userLikesSongDAO.create(entity);
+                userLikesSongDAO.save(entity);
             }
             if (post.getAlbum() != null){
                 UserLikesAlbum entity = new UserLikesAlbum();
+                UserLikesPK pk = new UserLikesPK();
+                pk.setLikedKey(post.getAlbum().getId());
+                pk.setUserKey(LoginData.getCurrentUser().getId());
+                entity.setUserLikesPK(pk);
                 entity.setUser(LoginData.getCurrentUser());
                 entity.setAlbum(post.getAlbum());
                 userDAO.save(LoginData.getCurrentUser());
                 albumDAO.save(post.getAlbum());
                 userLikesAlbumDAO.create(entity);
+                userLikesAlbumDAO.save(entity);
             }
         }else {
             if (post.getSong() != null){
                 UserLikesSong entity = new UserLikesSong();
+                UserLikesPK pk = new UserLikesPK();
+                pk.setLikedKey(post.getSong().getId());
+                pk.setUserKey(LoginData.getCurrentUser().getId());
+                entity.setUserLikesPK(pk);
                 entity.setUser(LoginData.getCurrentUser());
                 entity.setSong(post.getSong());
                 userDAO.save(LoginData.getCurrentUser());
@@ -162,6 +176,10 @@ public class PostViewController {
             }
             if (post.getAlbum() != null){
                 UserLikesAlbum entity = new UserLikesAlbum();
+                UserLikesPK pk = new UserLikesPK();
+                pk.setLikedKey(post.getAlbum().getId());
+                pk.setUserKey(LoginData.getCurrentUser().getId());
+                entity.setUserLikesPK(pk);
                 entity.setUser(LoginData.getCurrentUser());
                 entity.setAlbum(post.getAlbum());
                 userDAO.save(LoginData.getCurrentUser());
@@ -173,6 +191,7 @@ public class PostViewController {
     }
 
     private void reload() {
+        commentParent.getChildren().clear();
         post = postDAO.getPostsByTitle(post.getTitle()).getFirst();
         setData(post);
     }

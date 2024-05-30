@@ -109,7 +109,7 @@ public class MixstarterController implements Initializable {
     }
 
     private void initializePost(List<Post> posts) {
-        postParent.getChildren().removeAll();
+        postParent.getChildren().clear();
         try{
             for (Post post:posts){
                 FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/postcard.fxml"));
@@ -130,7 +130,7 @@ public class MixstarterController implements Initializable {
     }
 
     private void updateAlbumFeed() {
-        albumParent.getChildren().removeAll();
+        albumParent.getChildren().clear();
         //Create/update general album for all liked songs
         List<Song> likedSongs = songDAO.getSongsLikedByUser(user);
         if (!likedSongs.isEmpty()) initializeAlbum(likedSongs,"Liked songs");
