@@ -1,28 +1,28 @@
-package org.daniclo.mixstarter.dao;
+package org.daniclo.mixstarter.data;
 
-import org.daniclo.mixstarter.model.Album;
-import org.daniclo.mixstarter.model.Post;
+import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
-    public PostDAOImpl(Class<Post> entityClass) {
+public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
+    public AlbumDAOImpl(Class<Album> entityClass) {
         super(entityClass);
     }
 
     @Override
-    public List<Post> getPosts() {
+    public List<Album> getAlbums() {
         ExecutorService service = Executors.newSingleThreadExecutor();
-        Future<List<Post>> value = service.submit(()->{
+        Future<List<Album>> value = service.submit(()->{
             try (Session session = HibernateUtil.getSessionFactory().openSession();){
-                Query<Post> query = session.createQuery("from Post", Post.class);
+                Query<Album> query = session.createQuery("from Album", Album.class);
                 return query.getResultList();
             }
         });
@@ -36,13 +36,18 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
     }
 
     @Override
-    public List<Post> getPostsByUser(String username) {
+    public List<Album> getAlbumsLikedByUser(User user) {
         ExecutorService service = Executors.newSingleThreadExecutor();
-        Future<List<Post>> value = service.submit(()->{
+        Future<List<Album>> value = service.submit(()->{
             try (Session session = HibernateUtil.getSessionFactory().openSession();){
-                Query<Post> query = session.createQuery("from Post where user.username = :username", Post.class)
-                        .setParameter("username",username);
-                return query.getResultList();
+                Query<UserLikesAlbum> query = session.createQuery("from UserLikesAlbum where user.id = :userID", UserLikesAlbum.class)
+                        .setParameter("userID",user.getId());
+                var likedAlbums = query.getResultList();
+                List<Album> returnList = new ArrayList<>();
+                for (UserLikesAlbum u:likedAlbums){
+                    returnList.add(u.getAlbum());
+                }
+                return returnList;
             }
         });
         service.shutdown();
@@ -55,12 +60,12 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
     }
 
     @Override
-    public List<Post> getPostsByTitle(String title) {
+    public List<Album> getAlbumsByTag(String tag) {
         ExecutorService service = Executors.newSingleThreadExecutor();
-        Future<List<Post>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
-                Query<Post> query = session.createQuery("from Post where title like :title", Post.class)
-                        .setParameter("title","%"+title+"%");
+        Future<List<Album>> value = service.submit(()->{
+            try(Session session = HibernateUtil.getSessionFactory().openSession();){
+                Query<Album> query = session.createQuery("from Album where tag.name = :tag", Album.class)
+                        .setParameter("tag",tag);
                 return query.getResultList();
             }
         });

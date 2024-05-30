@@ -4,22 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.data.*;
 import org.daniclo.mixstarter.dropbox.DropboxAPI;
 import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Stream;
 
 public class PublishController {
 

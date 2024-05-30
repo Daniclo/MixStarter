@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
-import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.data.*;
 import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;
 
@@ -136,6 +136,7 @@ public class PostViewController {
     private void likePost(){
         if (btLikePost.getText().equals("Like post")){
             if (post.getSong() != null){
+                //Song managedSong = songDAO.save(post.getSong());
                 UserLikesSong entity = new UserLikesSong();
                 UserLikesPK pk = new UserLikesPK();
                 pk.setLikedKey(post.getSong().getId());
@@ -143,12 +144,10 @@ public class PostViewController {
                 entity.setUserLikesPK(pk);
                 entity.setUser(LoginData.getCurrentUser());
                 entity.setSong(post.getSong());
-                userDAO.save(LoginData.getCurrentUser());
-                songDAO.save(post.getSong());
                 userLikesSongDAO.create(entity);
-                userLikesSongDAO.save(entity);
             }
             if (post.getAlbum() != null){
+                //Album managedAlbum = albumDAO.save(post.getAlbum());
                 UserLikesAlbum entity = new UserLikesAlbum();
                 UserLikesPK pk = new UserLikesPK();
                 pk.setLikedKey(post.getAlbum().getId());
@@ -156,10 +155,7 @@ public class PostViewController {
                 entity.setUserLikesPK(pk);
                 entity.setUser(LoginData.getCurrentUser());
                 entity.setAlbum(post.getAlbum());
-                userDAO.save(LoginData.getCurrentUser());
-                albumDAO.save(post.getAlbum());
                 userLikesAlbumDAO.create(entity);
-                userLikesAlbumDAO.save(entity);
             }
         }else {
             if (post.getSong() != null){

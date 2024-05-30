@@ -1,4 +1,4 @@
-package org.daniclo.mixstarter.dao;
+package org.daniclo.mixstarter.data;
 
 import org.daniclo.mixstarter.model.User;
 

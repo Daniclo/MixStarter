@@ -1,6 +1,5 @@
-package org.daniclo.mixstarter.dao;
+package org.daniclo.mixstarter.data;
 
-import org.daniclo.mixstarter.model.Album;
 import org.daniclo.mixstarter.model.Tag;
 import org.daniclo.mixstarter.util.HibernateUtil;
 import org.hibernate.Session;

@@ -1,6 +1,5 @@
-package org.daniclo.mixstarter.dao;
+package org.daniclo.mixstarter.data;
 
-import org.daniclo.mixstarter.model.Album;
 import org.daniclo.mixstarter.model.Followers;
 import org.daniclo.mixstarter.model.User;
 import org.daniclo.mixstarter.util.HibernateUtil;

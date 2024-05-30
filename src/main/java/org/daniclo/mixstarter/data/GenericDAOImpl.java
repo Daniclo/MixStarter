@@ -1,11 +1,10 @@
-package org.daniclo.mixstarter.dao;
+package org.daniclo.mixstarter.data;
 
+import org.daniclo.mixstarter.model.Song;
 import org.daniclo.mixstarter.util.HibernateUtil;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -58,16 +57,23 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     @Override
-    public void save(T entity) {
+    public T save(T entity) {
         ExecutorService service = Executors.newSingleThreadExecutor();
-        service.submit(()->{
+        Future<T> value = service.submit(()->{
             try (Session session = HibernateUtil.getSessionFactory().openSession();) {
                 session.beginTransaction();
                 session.merge(entity);
                 session.getTransaction().commit();
+                return entity;
             }
         });
         service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override

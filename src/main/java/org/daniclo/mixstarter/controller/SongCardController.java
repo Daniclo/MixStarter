@@ -2,9 +2,14 @@ package org.daniclo.mixstarter.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.daniclo.mixstarter.model.Album;
 import org.daniclo.mixstarter.model.Song;
 
 public class SongCardController {
+
+    public Song song;
+    public Album album;
+
     @FXML
     private Label lbTitle;
     @FXML

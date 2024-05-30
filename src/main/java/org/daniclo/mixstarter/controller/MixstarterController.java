@@ -15,21 +15,30 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
-import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.audio.AudioPlayer;
+import org.daniclo.mixstarter.data.*;
+import org.daniclo.mixstarter.dropbox.DropboxAPI;
 import org.daniclo.mixstarter.model.Album;
 import org.daniclo.mixstarter.model.Post;
 import org.daniclo.mixstarter.model.Song;
 import org.daniclo.mixstarter.model.User;
 import org.daniclo.mixstarter.util.LoginData;
 
+import javax.sound.sampled.Line;
+import javax.sound.sampled.Mixer;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 public class MixstarterController implements Initializable {
 
@@ -38,6 +47,9 @@ public class MixstarterController implements Initializable {
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
     private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
+
+    private final AudioPlayer audioPlayer = new AudioPlayer();
+    private Song currentSong;
 
     @FXML
     private VBox albumParent;
@@ -60,6 +72,21 @@ public class MixstarterController implements Initializable {
     @FXML
     private TextField tfUpdateUsername;
 
+    @FXML
+    private ChoiceBox<Mixer.Info> cbInputDevice;
+
+    @FXML
+    private ChoiceBox<Line.Info> cbInputPort;
+
+    @FXML
+    private ChoiceBox<Mixer.Info> cbOutputDevice;
+
+    @FXML
+    private ChoiceBox<Line.Info> cbOutputPort;
+
+    @FXML
+    private Slider volumeSlider;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -78,6 +105,14 @@ public class MixstarterController implements Initializable {
         initializeScheduledUpdate();
         initializeSearchChoiceBox();
         initializePublicLikes();
+        initializeAudioOptions();
+    }
+
+    private void initializeAudioOptions() {
+        cbOutputDevice.getItems().addAll(audioPlayer.getDevices());
+        cbOutputDevice.setOnAction(t -> updateSourceLines());
+        cbInputDevice.getItems().addAll(audioPlayer.getDevices());
+        cbInputDevice.setOnAction(t -> updateTargetLines());
     }
 
     private void initializeScheduledUpdate() {
@@ -159,6 +194,7 @@ public class MixstarterController implements Initializable {
                 SongCardController cardController = fxmlLoader.getController();
                 cardController.setData(song);
                 hBox.getChildren().add(cardBox);
+                cardBox.setOnMouseClicked(mouseEvent -> playSong(song));
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -308,5 +344,52 @@ public class MixstarterController implements Initializable {
     @FXML
     private void onFirstTabClick(){
         updateAlbumFeed();
+    }
+
+    public void updateSourceLines(){
+        cbOutputPort.getItems().clear();
+        cbOutputPort.getItems().addAll(audioPlayer.getOutputLines(audioPlayer.getDevice(cbOutputDevice.getValue())));
+    }
+    public void updateTargetLines(){
+        cbInputPort.getItems().clear();
+        cbInputPort.getItems().addAll(audioPlayer.getInputLines(audioPlayer.getDevice(cbInputDevice.getValue())));
+    }
+
+    @FXML
+    private void resume(){
+        if (audioPlayer.isPlaying()){
+            audioPlayer.stopSound();
+        }else playSong(currentSong);
+    }
+
+    private void playSong(Song song){
+        currentSong = song;
+        if (audioPlayer.isPlaying()) audioPlayer.stopSound();
+        File file = new File("downloaded/"+song.getName()+".wav");
+        if (!file.exists()) DropboxAPI.downloadFile(song.getName()+".wav",DropboxAPI.getAuth());
+        file = new File("downloaded/"+song.getName()+".wav");
+        audioPlayer.playSoundByClip(file,cbOutputPort.getValue(),audioPlayer.getDevice(cbOutputDevice.getValue()));
+    }
+
+    @FXML
+    private void previousSong(){
+        if (currentSong != null && currentSong.getAlbum() != null){
+            Song song = currentSong.getAlbum().getSongs().get((int) (currentSong.getId()-1));
+            if (song == null) {
+                currentSong = currentSong.getAlbum().getSongs().getLast();
+            }else currentSong = song;
+            playSong(currentSong);
+        }
+    }
+
+    @FXML
+    private void nextSong(){
+        if (currentSong != null && currentSong.getAlbum() != null){
+            Song song = currentSong.getAlbum().getSongs().get((int) (currentSong.getId()+1));
+            if (song == null) {
+                currentSong = currentSong.getAlbum().getSongs().getFirst();
+            }else currentSong = song;
+            playSong(currentSong);
+        }
     }
 }

@@ -1,0 +1,83 @@
+package org.daniclo.mixstarter.audio;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class AudioPlayer {
+    private Mixer outputDevice;
+    private Clip clip;
+
+    public void playSoundByClip(File file, Line.Info info, Mixer device){
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.execute(() -> {
+            try{
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                outputDevice = device;
+                clip = (Clip) outputDevice.getLine(info);
+                clip.open(audioStream);
+                clip.start();
+                Thread.sleep(clip.getMicrosecondLength() / 1000);
+                clip.close();
+                audioStream.close();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException | InterruptedException e) {
+                System.err.println(e.getMessage());
+            }
+        });
+        service.shutdown();
+    }
+
+    public void stopSound(){
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.execute(() -> {
+            if (clip != null){
+                clip.close();
+            }
+        });
+        service.shutdown();
+    }
+    public boolean isPlaying(){
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<Boolean> value = service.submit(() -> {
+            if (clip != null) return clip.isOpen();
+            else return false;
+        });
+        service.shutdown();
+        try {
+            return value.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+    public void test(){
+        //Controls are Gain 0, Mute 1, Balance 2 y Pan 3
+        Mixer.Info[] info = AudioSystem.getMixerInfo();
+        Mixer mixer = AudioSystem.getMixer(info[0]);
+        Line.Info[] info2 = mixer.getSourceLineInfo();
+        Arrays.stream(info2).forEach(System.out::println);
+    }
+    public List<Mixer.Info> getDevices(){
+        Mixer.Info[] info = AudioSystem.getMixerInfo();
+        return new ArrayList<>(Arrays.asList(info));
+    }
+    public Mixer getDevice(Mixer.Info info){
+        return AudioSystem.getMixer(info);
+    }
+
+    public List<Line.Info> getInputLines(Mixer mixer){
+        Line.Info[] info = mixer.getTargetLineInfo();
+        return new ArrayList<>(Arrays.asList(info));
+    }
+    public List<Line.Info> getOutputLines(Mixer mixer){
+        Line.Info[] info = mixer.getSourceLineInfo();
+        return new ArrayList<>(Arrays.asList(info));
+    }
+}

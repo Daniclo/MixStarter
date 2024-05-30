@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
-import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.data.*;
 import org.daniclo.mixstarter.dropbox.DropboxAPI;
 import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;

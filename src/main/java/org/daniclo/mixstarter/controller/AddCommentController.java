@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.data.*;
 import org.daniclo.mixstarter.model.Comment;
 import org.daniclo.mixstarter.model.Post;
 import org.daniclo.mixstarter.model.User;

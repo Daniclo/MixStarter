@@ -1,6 +1,7 @@
-package org.daniclo.mixstarter.dao;
+package org.daniclo.mixstarter.data;
 
-import java.util.List;
+import org.daniclo.mixstarter.model.Song;
+
 import java.util.Optional;
 
 public interface GenericDAO<T> {
@@ -9,7 +10,7 @@ public interface GenericDAO<T> {
 
     void create(T entity);
 
-    void save(T entity);
+    T save(T entity);
 
     void deleteById(Long id);
 

@@ -215,7 +215,7 @@
                                                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="background" stylesheets="@../css/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
                                                       <Label styleClass="text" text="Select your output device" />
-                                                      <ChoiceBox prefHeight="26.0" prefWidth="500.0">
+                                                      <ChoiceBox fx:id="cbOutputDevice" prefHeight="26.0" prefWidth="500.0">
                                                          <styleClass>
                                                             <String fx:value="text" />
                                                             <String fx:value="fieldBackground" />
@@ -223,7 +223,7 @@
                                                             <String fx:value="mouse-moved" />
                                                          </styleClass></ChoiceBox>
                                                       <Label styleClass="text" text="Select your output port" />
-                                                      <ChoiceBox prefWidth="500.0">
+                                                      <ChoiceBox fx:id="cbOutputPort" prefWidth="500.0">
                                                          <styleClass>
                                                             <String fx:value="text" />
                                                             <String fx:value="fieldBackground" />
@@ -232,7 +232,7 @@
                                                          </styleClass></ChoiceBox>
                                                       <Separator prefWidth="200.0" />
                                                       <Label layoutX="20.0" layoutY="20.0" styleClass="text" text="Select your input device" />
-                                                      <ChoiceBox layoutX="20.0" layoutY="48.0" prefHeight="26.0" prefWidth="500.0">
+                                                      <ChoiceBox fx:id="cbInputDevice" layoutX="20.0" layoutY="48.0" prefHeight="26.0" prefWidth="500.0">
                                                          <styleClass>
                                                             <String fx:value="text" />
                                                             <String fx:value="fieldBackground" />
@@ -240,7 +240,7 @@
                                                             <String fx:value="mouse-moved" />
                                                          </styleClass></ChoiceBox>
                                                       <Label layoutX="20.0" layoutY="85.0" styleClass="text" text="Select your input port" />
-                                                      <ChoiceBox layoutX="20.0" layoutY="113.0" prefWidth="500.0">
+                                                      <ChoiceBox fx:id="cbInputPort" layoutX="20.0" layoutY="113.0" prefWidth="500.0">
                                                          <styleClass>
                                                             <String fx:value="text" />
                                                             <String fx:value="fieldBackground" />
@@ -282,9 +282,9 @@
          <children>
             <VBox alignment="CENTER" prefHeight="48.0" prefWidth="146.0" styleClass="background">
                <children>
-                  <Slider styleClass="fieldBackground" />
-                  <ProgressBar prefWidth="200.0" progress="0.0" styleClass="fieldBackground" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="0:00" textAlignment="CENTER">
+                  <Slider disable="true" styleClass="fieldBackground" />
+                  <ProgressBar disable="true" prefWidth="200.0" progress="0.0" styleClass="fieldBackground" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" disable="true" text="0:00" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="text-mouse-moved" />
                         <String fx:value="text" />
@@ -293,7 +293,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="background">
                <children>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#previousSong" text="Button">
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -309,7 +309,7 @@
                         <String fx:value="selection" />
                      </styleClass>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#resume" text="Button">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -323,7 +323,7 @@
                         <String fx:value="mouse-moved" />
                      </styleClass>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#nextSong" text="Button">
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -346,7 +346,7 @@
                         <Image url="@../icons/Volume.png" />
                      </image>
                   </ImageView>
-                  <Slider styleClass="fieldBackground" value="100.0" />
+                  <Slider fx:id="volumeSlider" styleClass="fieldBackground" value="100.0" />
                </children>
             </HBox>
          </children>

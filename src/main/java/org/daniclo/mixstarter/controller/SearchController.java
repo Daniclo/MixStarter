@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.daniclo.mixstarter.MixstarterApplication;
-import org.daniclo.mixstarter.dao.*;
+import org.daniclo.mixstarter.data.*;
 import org.daniclo.mixstarter.model.Album;
 import org.daniclo.mixstarter.model.Post;
 import org.daniclo.mixstarter.model.Song;
