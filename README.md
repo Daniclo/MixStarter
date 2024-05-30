@@ -1,4 +1,5 @@
 TO DO:
 - Arreglar likes.
 - Arreglar follows.
-- Audio.
+- Bugs previous/next.
+- Capturar audio.
