@@ -16,6 +16,9 @@ import org.daniclo.mixstarter.MixstarterApplication;
 import org.daniclo.mixstarter.controller.AuthController;
 
 import java.io.*;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.Objects;
 
@@ -53,9 +56,36 @@ public class DropboxAPI {
         return null;
     }
 
+    public static void uploadFolder(File file, DbxClientV2 client){
+        // Create Dropbox client
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("MixStarter/1.0").build();
+        // Get current account info to check if it's working
+        try {
+            System.out.println(client.users().getCurrentAccount().getName().getDisplayName());
+        } catch (DbxException | NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+        //Create the directory and upload every file inside of it.
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(file.toPath())){
+            stream.forEach(path -> {
+                try(FileInputStream inputStream = new FileInputStream(path.toFile())) {
+                    UploadBuilder uploadBuilder = client.files().uploadBuilder("/"+file.getName()+path.getFileName())
+                            .withClientModified(new Date(file.lastModified()))
+                            .withMode(WriteMode.ADD)
+                            .withAutorename(true);
+                    uploadBuilder.uploadAndFinish(inputStream);
+                } catch (IOException | DbxException e) {
+                    System.err.println(e.getMessage());
+                }
+            });
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     public static void uploadFile(File file, DbxClientV2 client){
         // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("MixStarter/1.0").build();
         // Get current account info to check if it's working
         try {
             System.out.println(client.users().getCurrentAccount().getName().getDisplayName());
@@ -75,7 +105,7 @@ public class DropboxAPI {
     }
     public static void downloadFile(String name,DbxClientV2 client){
         // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("MixStarter/1.0").build();
         // Get current account info to check if it's working
         try {
             System.out.println(client.users().getCurrentAccount().getName().getDisplayName());

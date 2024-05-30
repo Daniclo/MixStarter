@@ -8,10 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.daniclo.mixstarter.MixstarterApplication;
 import org.daniclo.mixstarter.dao.*;
-import org.daniclo.mixstarter.model.Album;
-import org.daniclo.mixstarter.model.Post;
-import org.daniclo.mixstarter.model.Song;
-import org.daniclo.mixstarter.model.User;
+import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.IOException;
@@ -21,10 +18,13 @@ import java.util.Objects;
 
 public class UserViewController {
 
+    private User user;
+
     private final UserDAO userDAO = new UserDAOImpl(User.class);
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
     private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
+    private final GenericDAO<Followers> followersDAO = new GenericDAOImpl<>(Followers.class);
 
     @FXML
     private Button btFollow;
@@ -42,6 +42,7 @@ public class UserViewController {
     private VBox postParent;
 
     public void setData(User user) {
+        this.user = user;
         lbUsername.setText(user.getUsername());
         if (!(user.getPosts().isEmpty())){
             List<Post> publishedPosts = postDAO.getPostsByUser(user.getUsername());
@@ -71,6 +72,7 @@ public class UserViewController {
     }
 
     private void initializePost(List<Post> posts, VBox parent) {
+        parent.getChildren().clear();
         try{
             for (Post post:posts){
                 FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/postcard.fxml"));
@@ -86,6 +88,23 @@ public class UserViewController {
 
     @FXML
     private void onFollow(){
-        //Qué pocas ganas tengo de hacer este xDDDD. Voy a ver un poquito de dropbox.
+        switch (btFollow.getText()){
+            case "Follow" ->{
+                Followers entity = new Followers();
+                FollowersPK pk = new FollowersPK();
+                pk.setUserFollowed(user.getId());
+                pk.setUserFollows(LoginData.getCurrentUser().getId());
+                userDAO.save(user);
+                userDAO.save(LoginData.getCurrentUser());
+                entity.setFollowed(user);
+                entity.setFollows(LoginData.getCurrentUser());
+                entity.setFollowersPK(pk);
+                followersDAO.save(entity);
+                setData(user);
+            }
+            case "Unfollow" ->{
+
+            }
+        }
     }
 }
