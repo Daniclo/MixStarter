@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="600.0" spacing="15.0" styleClass="background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.daniclo.mixstarter.controller.AuthController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="306.0" prefWidth="580.0" spacing="10.0">
+         <children>
+            <Label styleClass="bigText" text="DROPBOX AUTHENTICATION" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label prefHeight="86.0" prefWidth="488.0" styleClass="text" text="A Dropbox window has been opened in your browser. If that does not happen, please click the link below. Log in to Dropbox and press &quot;Allow&quot; to be able to upload or download files from MixStarter. You will recieve a code, input your authentication code below." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="link" text="Click here if the dropbox window is not opening">
+               <styleClass>
+                  <String fx:value="text" />
+                  <String fx:value="text-mouse-moved" />
+               </styleClass>
+            </Hyperlink>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <Label styleClass="text" text="Input your code from Dropbox Auth page:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfCode">
+               <styleClass>
+                  <String fx:value="fieldBackground" />
+                  <String fx:value="selection" />
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="text" />
+               </styleClass>
+            </TextField>
+         </children>
+      </VBox>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#confirm" text="Ok">
+               <styleClass>
+                  <String fx:value="fieldBackground" />
+                  <String fx:value="border" />
+                  <String fx:value="text" />
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="selection" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#cancel" text="Cancel">
+               <styleClass>
+                  <String fx:value="fieldBackground" />
+                  <String fx:value="border" />
+                  <String fx:value="text" />
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="selection" />
+               </styleClass>
+            </Button>
+        </buttons>
+      </ButtonBar>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
