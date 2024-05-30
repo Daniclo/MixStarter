@@ -18,7 +18,6 @@ import org.daniclo.mixstarter.controller.AuthController;
 import java.io.*;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class DropboxAPI {
     private static DbxClientV2 getAuth(){
@@ -44,7 +43,7 @@ public class DropboxAPI {
             AuthController controller = fxmlLoader.getController();
             controller.startAuth(authorizeUrl);
             stage.showAndWait();
-            if (!AuthController.authCode.isEmpty()) {
+            if (AuthController.authCode != null && !AuthController.authCode.isEmpty()) {
                 DbxAuthFinish authFinish = auth.finishFromCode(AuthController.authCode);
                 return new DbxClientV2(requestConfig, authFinish.getAccessToken());
             }else return null;
@@ -98,7 +97,7 @@ public class DropboxAPI {
         }
     }
 
-    public static void main(String[] args) {
+    public static void dropboxTest() {
         DbxClientV2 client = getAuth();
         uploadFile(new File("C:\\Users\\Usuario\\OneDrive\\Escritorio\\entradas_12805053.pdf"),client);
         downloadFile("entradas_12805053.pdf",client);

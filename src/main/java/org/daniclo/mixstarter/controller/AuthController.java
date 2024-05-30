@@ -3,18 +3,18 @@ package org.daniclo.mixstarter.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.Scanner;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
 
 public class AuthController {
 
     public static String authCode;
 
-    @FXML
-    private Hyperlink link;
+    public String authURL;
 
     @FXML
     private TextField tfCode;
@@ -39,8 +39,22 @@ public class AuthController {
         closeWindow(event);
     }
 
-    public void startAuth(String authURL){
+    @FXML
+    private void openLink(){
+        try {
+            Desktop.getDesktop().browse(URI.create(authURL));
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
+    public void startAuth(String authURL){
+        this.authURL = authURL;
+        try {
+            Desktop.getDesktop().browse(URI.create(this.authURL));
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private void closeWindow(ActionEvent event){
