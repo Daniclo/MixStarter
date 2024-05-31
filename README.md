@@ -1,4 +1,4 @@
 TO DO:
-- Arreglar likes.
-- Arreglar follows.
-- Audio.
+- Eliminar like.
+- Eliminar follow.
+- Grabar

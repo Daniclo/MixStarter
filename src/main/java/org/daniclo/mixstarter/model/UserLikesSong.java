@@ -15,17 +15,23 @@ import lombok.ToString;
 public class UserLikesSong {
 
     @EmbeddedId
-    private UserLikesPK userLikesPK = new UserLikesPK();
+    private UserLikesPK userLikesPK;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne
     @ToString.Exclude
     @MapsId("userKey")
     @JoinColumn(name = "Usuario_idUsuario")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne
     @ToString.Exclude
     @MapsId("likedKey")
     @JoinColumn(name = "Cancion_idCancion")
     private Song song;
+
+    public UserLikesSong(User user, Song song){
+        this.user = user;
+        this.song = song;
+        this.userLikesPK = new UserLikesPK(user.getId(), song.getId());
+    }
 }

@@ -90,16 +90,8 @@ public class UserViewController {
     private void onFollow(){
         switch (btFollow.getText()){
             case "Follow" ->{
-                Followers entity = new Followers();
-                FollowersPK pk = new FollowersPK();
-                pk.setUserFollowed(user.getId());
-                pk.setUserFollows(LoginData.getCurrentUser().getId());
-                userDAO.save(user);
-                userDAO.save(LoginData.getCurrentUser());
-                entity.setFollowed(user);
-                entity.setFollows(LoginData.getCurrentUser());
-                entity.setFollowersPK(pk);
-                followersDAO.save(entity);
+                Followers followers = new Followers(LoginData.getCurrentUser(),user);
+                followersDAO.save(followers);
                 setData(user);
             }
             case "Unfollow" ->{

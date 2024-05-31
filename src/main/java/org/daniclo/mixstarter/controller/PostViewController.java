@@ -28,7 +28,6 @@ public class PostViewController {
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
     private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
-    private final UserDAO userDAO = new UserDAOImpl(User.class);
     private final GenericDAO<UserLikesSong> userLikesSongDAO = new GenericDAOImpl<>(UserLikesSong.class);
     private final GenericDAO<UserLikesAlbum> userLikesAlbumDAO = new GenericDAOImpl<>(UserLikesAlbum.class);
 
@@ -136,51 +135,21 @@ public class PostViewController {
     private void likePost(){
         if (btLikePost.getText().equals("Like post")){
             if (post.getSong() != null){
-                //Song managedSong = songDAO.save(post.getSong());
-                UserLikesSong entity = new UserLikesSong();
-                UserLikesPK pk = new UserLikesPK();
-                pk.setLikedKey(post.getSong().getId());
-                pk.setUserKey(LoginData.getCurrentUser().getId());
-                entity.setUserLikesPK(pk);
-                entity.setUser(LoginData.getCurrentUser());
-                entity.setSong(post.getSong());
-                userLikesSongDAO.create(entity);
+                UserLikesSong us = new UserLikesSong(LoginData.getCurrentUser(), post.getSong());
+                userLikesSongDAO.save(us);
             }
             if (post.getAlbum() != null){
-                //Album managedAlbum = albumDAO.save(post.getAlbum());
-                UserLikesAlbum entity = new UserLikesAlbum();
-                UserLikesPK pk = new UserLikesPK();
-                pk.setLikedKey(post.getAlbum().getId());
-                pk.setUserKey(LoginData.getCurrentUser().getId());
-                entity.setUserLikesPK(pk);
-                entity.setUser(LoginData.getCurrentUser());
-                entity.setAlbum(post.getAlbum());
-                userLikesAlbumDAO.create(entity);
+                UserLikesAlbum us = new UserLikesAlbum(LoginData.getCurrentUser(), post.getAlbum());
+                userLikesAlbumDAO.save(us);
             }
         }else {
             if (post.getSong() != null){
-                UserLikesSong entity = new UserLikesSong();
-                UserLikesPK pk = new UserLikesPK();
-                pk.setLikedKey(post.getSong().getId());
-                pk.setUserKey(LoginData.getCurrentUser().getId());
-                entity.setUserLikesPK(pk);
-                entity.setUser(LoginData.getCurrentUser());
-                entity.setSong(post.getSong());
-                userDAO.save(LoginData.getCurrentUser());
-                songDAO.save(post.getSong());
-                userLikesSongDAO.delete(entity);
+                UserLikesSong us = new UserLikesSong(LoginData.getCurrentUser(), post.getSong());
+                userLikesSongDAO.delete(us);
             }
             if (post.getAlbum() != null){
-                UserLikesAlbum entity = new UserLikesAlbum();
-                UserLikesPK pk = new UserLikesPK();
-                pk.setLikedKey(post.getAlbum().getId());
-                pk.setUserKey(LoginData.getCurrentUser().getId());
-                entity.setUserLikesPK(pk);
-                entity.setUser(LoginData.getCurrentUser());
-                entity.setAlbum(post.getAlbum());
-                userDAO.save(LoginData.getCurrentUser());
-                albumDAO.save(post.getAlbum());
-                userLikesAlbumDAO.delete(entity);
+                UserLikesAlbum us = new UserLikesAlbum(LoginData.getCurrentUser(), post.getAlbum());
+                userLikesAlbumDAO.delete(us);
             }
         }
         initializeLike();

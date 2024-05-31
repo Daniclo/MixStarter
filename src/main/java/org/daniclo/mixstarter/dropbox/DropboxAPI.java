@@ -109,7 +109,7 @@ public class DropboxAPI {
         // Get current account info to check if it's working
         try {
             System.out.println(client.users().getCurrentAccount().getName().getDisplayName());
-        } catch (DbxException e) {
+        } catch (DbxException | NullPointerException e) {
             System.err.println(e.getMessage());
         }
         //Download files

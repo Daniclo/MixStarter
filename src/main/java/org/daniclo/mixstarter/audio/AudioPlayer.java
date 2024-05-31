@@ -27,7 +27,7 @@ public class AudioPlayer {
                 Thread.sleep(clip.getMicrosecondLength() / 1000);
                 clip.close();
                 audioStream.close();
-            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException | InterruptedException e) {
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException | IllegalArgumentException | InterruptedException e) {
                 System.err.println(e.getMessage());
             }
         });

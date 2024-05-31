@@ -18,22 +18,27 @@ import java.sql.Timestamp;
 public class Followers {
 
     @EmbeddedId
-    private FollowersPK followersPK = new FollowersPK();
+    private FollowersPK followersPK;
 
     @Column(name = "fechaSeguimiento", nullable = false)
     @CreationTimestamp
     private Timestamp followingDate;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne
     @ToString.Exclude
     @MapsId("userFollows")
     @JoinColumn(name = "idSeguidor")
     private User follows;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne
     @ToString.Exclude
     @MapsId("userFollowed")
     @JoinColumn(name = "idSeguido")
     private User followed;
 
+    public Followers(User follows, User followed) {
+        this.follows = follows;
+        this.followed = followed;
+        this.followersPK = new FollowersPK(follows.getId(), followed.getId());
+    }
 }

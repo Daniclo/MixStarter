@@ -10,22 +10,28 @@ import lombok.ToString;
 @Table(name = "UsuarioLikesAlbum")
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
 public class UserLikesAlbum {
 
     @EmbeddedId
-    private UserLikesPK userLikesPK = new UserLikesPK();
+    private UserLikesPK userLikesPK;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne
     @ToString.Exclude
     @MapsId("userKey")
     @JoinColumn(name = "Usuario_idUsuario")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne
     @ToString.Exclude
     @MapsId("likedKey")
     @JoinColumn(name = "Album_idAlbum")
     private Album album;
+
+    public UserLikesAlbum(User user, Album album) {
+        this.user = user;
+        this.album = album;
+        this.userLikesPK = new UserLikesPK(user.getId(), album.getId());
+    }
 }
