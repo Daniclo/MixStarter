@@ -1,4 +1,5 @@
 TO DO:
 - Eliminar like.
 - Eliminar follow.
-- Grabar
+- Bug previous/next song.
+- Capturar audio
