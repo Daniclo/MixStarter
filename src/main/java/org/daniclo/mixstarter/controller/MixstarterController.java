@@ -374,22 +374,28 @@ public class MixstarterController implements Initializable {
     @FXML
     private void previousSong(){
         if (currentSong != null && currentSong.getAlbum() != null){
-            Song song = currentSong.getAlbum().getSongs().get((int) (currentSong.getId()-1));
-            if (song == null) {
+            try{
+                currentSong = currentSong.getAlbum().getSongs().get(Math.toIntExact(currentSong.getId()-2));
+                System.out.println(currentSong.getName());
+                playSong(currentSong);
+            }catch (IndexOutOfBoundsException e){
                 currentSong = currentSong.getAlbum().getSongs().getLast();
-            }else currentSong = song;
-            playSong(currentSong);
+            }
         }
     }
 
     @FXML
     private void nextSong(){
         if (currentSong != null && currentSong.getAlbum() != null){
-            Song song = currentSong.getAlbum().getSongs().get((int) (currentSong.getId()+1));
-            if (song == null) {
+            try{
+                currentSong = currentSong.getAlbum().getSongs().get(Math.toIntExact(currentSong.getId()));
+                System.out.println(currentSong.getName());
+                playSong(currentSong);
+            }catch (IndexOutOfBoundsException e){
                 currentSong = currentSong.getAlbum().getSongs().getFirst();
-            }else currentSong = song;
-            playSong(currentSong);
+                System.out.println(currentSong.getName());
+                playSong(currentSong);
+            }
         }
     }
 }
