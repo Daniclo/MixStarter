@@ -1,4 +1,3 @@
 TO DO:
-- Eliminar like.
-- Eliminar follow.
-- Capturar audio
+- Eliminar follow (hace falta? los followers no hacen na xd).
+- Corrección general de errores.

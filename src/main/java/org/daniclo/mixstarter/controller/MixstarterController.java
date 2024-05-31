@@ -12,10 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.MixstarterApplication;
 import org.daniclo.mixstarter.audio.AudioPlayer;
+import org.daniclo.mixstarter.audio.AudioRecorder;
 import org.daniclo.mixstarter.data.*;
 import org.daniclo.mixstarter.dropbox.DropboxAPI;
 import org.daniclo.mixstarter.model.Album;
@@ -24,21 +26,16 @@ import org.daniclo.mixstarter.model.Song;
 import org.daniclo.mixstarter.model.User;
 import org.daniclo.mixstarter.util.LoginData;
 
-import javax.sound.sampled.Line;
-import javax.sound.sampled.Mixer;
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Stream;
 
 public class MixstarterController implements Initializable {
 
@@ -49,7 +46,10 @@ public class MixstarterController implements Initializable {
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
 
     private final AudioPlayer audioPlayer = new AudioPlayer();
+    private final AudioRecorder audioRecorder = new AudioRecorder();
     private Song currentSong;
+
+    File filesDestination;
 
     @FXML
     private VBox albumParent;
@@ -87,6 +87,12 @@ public class MixstarterController implements Initializable {
     @FXML
     private Slider volumeSlider;
 
+    @FXML
+    private TextField tfFilesDestination;
+
+    @FXML
+    private TextField tfFileName;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -102,34 +108,17 @@ public class MixstarterController implements Initializable {
         System.out.println(user);
         updateAlbumFeed();
         updateSocialFeed();
-        initializeScheduledUpdate();
         initializeSearchChoiceBox();
         initializePublicLikes();
         initializeAudioOptions();
     }
+
 
     private void initializeAudioOptions() {
         cbOutputDevice.getItems().addAll(audioPlayer.getDevices());
         cbOutputDevice.setOnAction(t -> updateSourceLines());
         cbInputDevice.getItems().addAll(audioPlayer.getDevices());
         cbInputDevice.setOnAction(t -> updateTargetLines());
-    }
-
-    private void initializeScheduledUpdate() {
-        ScheduledExecutorService sevice1 = Executors.newSingleThreadScheduledExecutor();
-        sevice1.scheduleAtFixedRate(this::updateSocialFeed,
-                5,
-                5,
-                TimeUnit.SECONDS);
-        sevice1.shutdown();
-        ScheduledExecutorService service2 = Executors.newSingleThreadScheduledExecutor();
-        service2.scheduleAtFixedRate(this::updateAlbumFeed,
-                5,
-                5,
-                TimeUnit.SECONDS);
-        service2.shutdown();
-        //Stage stage = (Stage)albumParent.getScene().getWindow();
-        //stage.setOnCloseRequest(windowEvent -> service.shutdown());
     }
 
     private void initializePublicLikes() {
@@ -165,6 +154,7 @@ public class MixstarterController implements Initializable {
     }
 
     private void updateAlbumFeed() {
+        System.out.println("Album feed updated");
         albumParent.getChildren().clear();
         //Create/update general album for all liked songs
         List<Song> likedSongs = songDAO.getSongsLikedByUser(user);
@@ -346,6 +336,11 @@ public class MixstarterController implements Initializable {
         updateAlbumFeed();
     }
 
+    @FXML
+    private void onSecondTabClick(){
+        updateSocialFeed();
+    }
+
     public void updateSourceLines(){
         cbOutputPort.getItems().clear();
         cbOutputPort.getItems().addAll(audioPlayer.getOutputLines(audioPlayer.getDevice(cbOutputDevice.getValue())));
@@ -397,5 +392,43 @@ public class MixstarterController implements Initializable {
                 playSong(currentSong);
             }
         }
+    }
+
+    @FXML
+    private void updateVolume(){
+        FloatControl volumeControl = audioPlayer.getVolumeControl();
+        volumeSlider.setMax(volumeControl.getMaximum());
+        volumeSlider.setMin(volumeControl.getMinimum());
+        volumeControl.setValue((float) volumeSlider.getValue());
+    }
+
+    @FXML
+    private void selectFilesDestination(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        filesDestination = new File("");
+        filesDestination = directoryChooser.showDialog(new Stage());
+        if (filesDestination != null){
+            tfFilesDestination.setText(filesDestination.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void startRecording(){
+        try {
+            if (audioPlayer.isPlaying()){
+                audioPlayer.stopSound();
+            }
+            audioRecorder.recordSound(cbInputPort.getValue(),audioPlayer.getDevice(cbInputDevice.getValue()),
+                    tfFilesDestination.getText(),tfFileName.getText());
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void stopRecording(){
+        System.out.println("Recording stops");
+        audioRecorder.inputDataLine.stop();
+        audioRecorder.inputDataLine.close();
     }
 }

@@ -16,8 +16,7 @@ public class AudioPlayer {
     private Clip clip;
 
     public void playSoundByClip(File file, Line.Info info, Mixer device){
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        service.execute(() -> {
+        Thread t = new Thread(() -> {
             try{
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
                 outputDevice = device;
@@ -31,7 +30,8 @@ public class AudioPlayer {
                 System.err.println(e.getMessage());
             }
         });
-        service.shutdown();
+        t.setDaemon(true);
+        t.start();
     }
 
     public void stopSound(){
@@ -59,10 +59,11 @@ public class AudioPlayer {
     }
     public void test(){
         //Controls are Gain 0, Mute 1, Balance 2 y Pan 3
-        Mixer.Info[] info = AudioSystem.getMixerInfo();
-        Mixer mixer = AudioSystem.getMixer(info[0]);
-        Line.Info[] info2 = mixer.getSourceLineInfo();
-        Arrays.stream(info2).forEach(System.out::println);
+        Control[] controls = clip.getControls();
+        System.out.println(Arrays.toString(controls));
+    }
+    public FloatControl getVolumeControl(){
+        return (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
     }
     public List<Mixer.Info> getDevices(){
         Mixer.Info[] info = AudioSystem.getMixerInfo();

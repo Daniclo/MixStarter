@@ -17,9 +17,9 @@ import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PostViewController {
 
@@ -28,8 +28,8 @@ public class PostViewController {
     private final PostDAO postDAO = new PostDAOImpl(Post.class);
     private final SongDAO songDAO = new SongDAOImpl(Song.class);
     private final AlbumDAO albumDAO = new AlbumDAOImpl(Album.class);
-    private final GenericDAO<UserLikesSong> userLikesSongDAO = new GenericDAOImpl<>(UserLikesSong.class);
-    private final GenericDAO<UserLikesAlbum> userLikesAlbumDAO = new GenericDAOImpl<>(UserLikesAlbum.class);
+    private final UserLikesSongDAO userLikesSongDAO = new UserLikesSongDAOImpl(UserLikesSong.class);
+    private final UserLikesAlbumDAO userLikesAlbumDAO = new UserLikesAlbumDAOImpl(UserLikesAlbum.class);
 
     @FXML
     private Button btLikePost;
@@ -63,19 +63,23 @@ public class PostViewController {
     }
 
     private void initializeLike() {
-        List<Album> likedAlbums = albumDAO.getAlbumsLikedByUser(LoginData.getCurrentUser());
-        List<Song> likedSongs = songDAO.getSongsLikedByUser(LoginData.getCurrentUser());
-        List<Post> likedPosts = new ArrayList<>();
-        for (Song song:likedSongs)
-            if (song.getPost() != null) likedPosts.add(song.getPost());
-        for (Album album:likedAlbums)
-            if (album.getPost() != null) likedPosts.add(album.getPost());
-        for (Post likedPost:likedPosts)
-            if (Objects.equals(likedPost.getId(), post.getId())){
-                btLikePost.setText("Unlike post");
-            }else {
-                btLikePost.setText("Like post");
-            }
+        if (post.getAlbum() == null){
+            List<Song> songs = songDAO.getSongsLikedByUser(LoginData.getCurrentUser());
+            AtomicBoolean found = new AtomicBoolean(false);
+            songs.forEach(song -> {
+                if (song.getId() == post.getSong().getId()) found.set(true);
+            });
+            if (found.get()) btLikePost.setText("Unlike post");
+            else btLikePost.setText("Like post");
+        }else{
+            List<Album> albums = albumDAO.getAlbumsLikedByUser(LoginData.getCurrentUser());
+            AtomicBoolean found = new AtomicBoolean(false);
+            albums.forEach(album -> {
+                if (album.getId() == post.getAlbum().getId()) found.set(true);
+            });
+            if (found.get()) btLikePost.setText("Unlike post");
+            else btLikePost.setText("Like post");
+        }
     }
 
     private void initializeComments(List<Comment> comments) {
@@ -144,11 +148,11 @@ public class PostViewController {
             }
         }else {
             if (post.getSong() != null){
-                UserLikesSong us = new UserLikesSong(LoginData.getCurrentUser(), post.getSong());
+                UserLikesSong us = userLikesSongDAO.findByUserAndSong(LoginData.getCurrentUser(), post.getSong());
                 userLikesSongDAO.delete(us);
             }
             if (post.getAlbum() != null){
-                UserLikesAlbum us = new UserLikesAlbum(LoginData.getCurrentUser(), post.getAlbum());
+                UserLikesAlbum us = userLikesAlbumDAO.findByUserAndAlbum(LoginData.getCurrentUser(), post.getAlbum());
                 userLikesAlbumDAO.delete(us);
             }
         }
