@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.daniclo.mixstarter.data.*;
@@ -12,6 +13,10 @@ import org.daniclo.mixstarter.model.*;
 import org.daniclo.mixstarter.util.LoginData;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class PublishController {
 
@@ -47,6 +52,27 @@ public class PublishController {
             song = null;
             album = null;
             //album creation functionality. For now, just songs.
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File file = directoryChooser.showDialog(new Stage());
+            if (file != null){
+                currentFile = file;
+                String albumName = file.getName().substring(0, file.getName().lastIndexOf("."));
+                lbFiles.setText(albumName);
+                album = new Album();
+                List<Song> songs = new ArrayList<>();
+                List<File> files = Arrays.stream(Objects.requireNonNull(file.listFiles())).toList();
+                files.forEach(f -> {
+                    String songName = file.getName().substring(0, file.getName().lastIndexOf("."));
+                    songs.add(new Song());
+                    song.setName(songName);
+                    song.setLength(100);
+                    Tag tag = tagDAO.getTagByName(tfTag.getText());
+                    song.setTag(tag);
+                    songDAO.create(song);
+                });
+                album.setSongs(songs);
+                albumDAO.save(album);
+            }
         }else{
             song = null;
             album = null;
@@ -101,6 +127,7 @@ public class PublishController {
             userDAO.save(LoginData.getCurrentUser());
             postDAO.create(post);
             DropboxAPI.uploadFile(currentFile,DropboxAPI.getAuth());
+            DropboxAPI.downloadFile(song.getName(),DropboxAPI.getAuth());
             closeWindow(event);
         } else if (album != null){
             Post post = new Post();
