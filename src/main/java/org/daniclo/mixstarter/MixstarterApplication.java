@@ -12,11 +12,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MixstarterApplication extends Application {
-
-    static{
-        Font.loadFont(MixstarterApplication.class.getResourceAsStream("fonts/gabriola.ttf"),14);
-        Font.loadFont(MixstarterApplication.class.getResourceAsStream("fonts/ABeeZee-Regular.otf"),14);
-    }
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MixstarterApplication.class.getResource("fxml/login.fxml"));
@@ -30,7 +25,11 @@ public class MixstarterApplication extends Application {
     }
 
     public static void main(String[] args) {
-        HibernateUtil.getSessionFactory();
-        launch();
+        try {
+            HibernateUtil.getSessionFactory();
+            launch();
+        }catch (Exception e){
+            System.err.println("Database connection error.");
+        }
     }
 }
