@@ -127,7 +127,6 @@ public class PublishController {
             userDAO.save(LoginData.getCurrentUser());
             postDAO.create(post);
             DropboxAPI.uploadFile(currentFile,DropboxAPI.getAuth());
-            DropboxAPI.downloadFile(song.getName(),DropboxAPI.getAuth());
             closeWindow(event);
         } else if (album != null){
             Post post = new Post();

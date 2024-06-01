@@ -50,7 +50,7 @@ public class DropboxAPI {
                 DbxAuthFinish authFinish = auth.finishFromCode(AuthController.authCode);
                 return new DbxClientV2(requestConfig, authFinish.getAccessToken());
             }else return null;
-        } catch (JsonReader.FileLoadException | DbxException | IOException e) {
+        } catch (JsonReader.FileLoadException | DbxException | IOException | NullPointerException e) {
             System.err.println(e.getMessage());
         }
         return null;
@@ -78,7 +78,7 @@ public class DropboxAPI {
                     System.err.println(e.getMessage());
                 }
             });
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e ) {
             System.err.println(e.getMessage());
         }
     }
@@ -99,7 +99,7 @@ public class DropboxAPI {
                     .withMode(WriteMode.ADD)
                     .withAutorename(true);
             uploadBuilder.uploadAndFinish(inputStream);
-        } catch (DbxException | IOException e) {
+        } catch (DbxException | IOException | NullPointerException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -122,8 +122,8 @@ public class DropboxAPI {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(bytes);
             fileOutputStream.close();
-        } catch (IOException | DbxException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | DbxException | NullPointerException e) {
+            System.err.println(e.getMessage());
         }
     }
 

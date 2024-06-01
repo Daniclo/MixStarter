@@ -46,7 +46,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
                     tx = session.beginTransaction();
                     session.persist(entity);
                     tx.commit();
-                } catch (RuntimeException e) {
+                } catch (Exception e) {
                     if(tx != null)
                         tx.rollback();
                     System.err.println(e.getMessage());
