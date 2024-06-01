@@ -20,7 +20,7 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
     public List<Tag> getTags() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Tag>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Tag> query = session.createQuery("from Tag", Tag.class);
                 return query.getResultList();
             }
@@ -38,7 +38,7 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
     public Tag getTagByName(String name) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<Tag> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Tag> query = session.createQuery("from Tag where name = :name", Tag.class)
                         .setParameter("name",name);
                 return query.getSingleResultOrNull();

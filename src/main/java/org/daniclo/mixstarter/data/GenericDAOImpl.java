@@ -1,6 +1,5 @@
 package org.daniclo.mixstarter.data;
 
-import org.daniclo.mixstarter.model.Song;
 import org.daniclo.mixstarter.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,7 +22,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public Optional<T> findById(Long id) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<Optional<T>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 return Optional.ofNullable(session.find(entityClass, id));
             }
         });
@@ -40,7 +39,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public void create(T entity) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 Transaction tx = null;
                 try {
                     tx = session.beginTransaction();
@@ -60,7 +59,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public T save(T entity) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<T> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 session.beginTransaction();
                 session.merge(entity);
                 session.getTransaction().commit();
@@ -80,7 +79,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public void deleteById(Long id) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 session.beginTransaction();
                 session.remove(session.find(entityClass, id));
                 session.getTransaction().commit();
@@ -93,7 +92,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public void delete(T entity) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 session.beginTransaction();
                 session.remove(entity);
                 session.getTransaction().commit();

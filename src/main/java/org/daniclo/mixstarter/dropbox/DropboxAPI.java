@@ -57,8 +57,6 @@ public class DropboxAPI {
     }
 
     public static void uploadFolder(File file, DbxClientV2 client){
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("MixStarter/1.0").build();
         // Get current account info to check if it's working
         try {
             System.out.println(client.users().getCurrentAccount().getName().getDisplayName());
@@ -84,8 +82,6 @@ public class DropboxAPI {
     }
 
     public static void uploadFile(File file, DbxClientV2 client){
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("MixStarter/1.0").build();
         // Get current account info to check if it's working
         try {
             System.out.println(client.users().getCurrentAccount().getName().getDisplayName());
@@ -104,8 +100,6 @@ public class DropboxAPI {
         }
     }
     public static void downloadFile(String name,DbxClientV2 client){
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("MixStarter/1.0").build();
         // Get current account info to check if it's working
         try {
             System.out.println(client.users().getCurrentAccount().getName().getDisplayName());
@@ -114,7 +108,7 @@ public class DropboxAPI {
         }
         //Download files
         try(DbxDownloader<FileMetadata> dbxDownloader = client.files().download("/" + name);
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();)
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream())
         {
             dbxDownloader.download(outputStream);
             File file = new File("downloaded/" + name);

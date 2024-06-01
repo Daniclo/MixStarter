@@ -5,12 +5,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class AudioRecorder {
-    private Mixer inputDevice;
     public TargetDataLine inputDataLine;
 
     public void recordSound(Line.Info info, Mixer device, String path, String name) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        inputDevice = device;
-        inputDataLine = (TargetDataLine) inputDevice.getLine(info);
+        inputDataLine = (TargetDataLine) device.getLine(info);
         inputDataLine.open();
 
         inputDataLine.start();

@@ -20,7 +20,7 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
     public List<Post> getPosts() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Post>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Post> query = session.createQuery("from Post", Post.class);
                 return query.getResultList();
             }
@@ -38,7 +38,7 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
     public List<Post> getPostsByUser(String username) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Post>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Post> query = session.createQuery("from Post where user.username = :username", Post.class)
                         .setParameter("username",username);
                 return query.getResultList();
@@ -57,7 +57,7 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO{
     public List<Post> getPostsByTitle(String title) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Post>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Post> query = session.createQuery("from Post where title like :title", Post.class)
                         .setParameter("title","%"+title+"%");
                 return query.getResultList();

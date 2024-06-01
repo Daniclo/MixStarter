@@ -22,7 +22,7 @@ public class UserLikesAlbumDAOImpl extends GenericDAOImpl<UserLikesAlbum> implem
     public UserLikesAlbum findByUserAndAlbum(User user, Album album) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<UserLikesAlbum> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<UserLikesAlbum> query = session.createQuery("from UserLikesAlbum where user.id = :userID and album.id = :albumID",
                                 UserLikesAlbum.class)
                         .setParameter("userID",user.getId())

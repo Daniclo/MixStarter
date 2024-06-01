@@ -67,7 +67,7 @@ public class PostViewController {
             List<Song> songs = songDAO.getSongsLikedByUser(LoginData.getCurrentUser());
             AtomicBoolean found = new AtomicBoolean(false);
             songs.forEach(song -> {
-                if (song.getId() == post.getSong().getId()) found.set(true);
+                if (Objects.equals(song.getId(), post.getSong().getId())) found.set(true);
             });
             if (found.get()) btLikePost.setText("Unlike post");
             else btLikePost.setText("Like post");
@@ -75,7 +75,7 @@ public class PostViewController {
             List<Album> albums = albumDAO.getAlbumsLikedByUser(LoginData.getCurrentUser());
             AtomicBoolean found = new AtomicBoolean(false);
             albums.forEach(album -> {
-                if (album.getId() == post.getAlbum().getId()) found.set(true);
+                if (Objects.equals(album.getId(), post.getAlbum().getId())) found.set(true);
             });
             if (found.get()) btLikePost.setText("Unlike post");
             else btLikePost.setText("Like post");

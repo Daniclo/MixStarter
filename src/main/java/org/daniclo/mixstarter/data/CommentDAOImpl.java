@@ -20,7 +20,7 @@ public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDA
     public List<Comment> getComments() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Comment>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Comment> query = session.createQuery("from Comment", Comment.class);
                 return query.getResultList();
             }

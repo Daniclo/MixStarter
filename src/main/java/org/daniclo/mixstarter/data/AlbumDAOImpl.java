@@ -21,7 +21,7 @@ public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
     public List<Album> getAlbums() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Album>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Album> query = session.createQuery("from Album", Album.class);
                 return query.getResultList();
             }
@@ -39,7 +39,7 @@ public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
     public List<Album> getAlbumsLikedByUser(User user) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Album>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<UserLikesAlbum> query = session.createQuery("from UserLikesAlbum where user.id = :userID", UserLikesAlbum.class)
                         .setParameter("userID",user.getId());
                 var likedAlbums = query.getResultList();
@@ -63,7 +63,7 @@ public class AlbumDAOImpl extends GenericDAOImpl<Album> implements AlbumDAO {
     public List<Album> getAlbumsByTag(String tag) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Album>> value = service.submit(()->{
-            try(Session session = HibernateUtil.getSessionFactory().openSession();){
+            try(Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Album> query = session.createQuery("from Album where tag.name = :tag", Album.class)
                         .setParameter("tag",tag);
                 return query.getResultList();

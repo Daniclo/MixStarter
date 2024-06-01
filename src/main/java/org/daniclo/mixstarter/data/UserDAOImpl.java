@@ -22,7 +22,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
     public List<User> getUsers() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<User>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<User> query = session.createQuery("from User", User.class);
                 return query.getResultList();
             }
@@ -40,7 +40,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
     public User getByName(String name) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<User> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 Query<User> query = session.createQuery("from User where username = :username", User.class)
                         .setParameter("username", name);
                 return query.getSingleResultOrNull();
@@ -59,7 +59,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
     public List<User> getFollowers(Long id) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<User>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Followers> query = session.createQuery("from Followers where followed.id = :userID", Followers.class)
                         .setParameter("userID",id);
                 var followers = query.getResultList();
@@ -84,7 +84,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO{
     public List<User> getFollowing(Long id) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<User>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Followers> query = session.createQuery("from Followers where follows.id = :userID", Followers.class)
                         .setParameter("userID",id);
                 var following = query.getResultList();

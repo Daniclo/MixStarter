@@ -23,7 +23,7 @@ public class SongDAOImpl extends GenericDAOImpl<Song> implements SongDAO {
     public List<Song> getSongs() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Song>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Song> query = session.createQuery("from Song", Song.class);
                 return query.getResultList();
             }
@@ -41,7 +41,7 @@ public class SongDAOImpl extends GenericDAOImpl<Song> implements SongDAO {
     public List<Song> getSongsLikedByUser(User user) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Song>> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<UserLikesSong> query = session.createQuery("from UserLikesSong where user.id = :userID", UserLikesSong.class)
                         .setParameter("userID",user.getId());
                 var likedSongs = query.getResultList();
@@ -65,7 +65,7 @@ public class SongDAOImpl extends GenericDAOImpl<Song> implements SongDAO {
     public List<Song> getSongsByTag(String tag) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<List<Song>> value = service.submit(()->{
-            try(Session session = HibernateUtil.getSessionFactory().openSession();){
+            try(Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<Song> query = session.createQuery("from Song where tag.name = :tag", Song.class)
                         .setParameter("tag",tag);
                 return query.getResultList();

@@ -2,7 +2,6 @@ package org.daniclo.mixstarter.data;
 
 import org.daniclo.mixstarter.model.Song;
 import org.daniclo.mixstarter.model.User;
-import org.daniclo.mixstarter.model.UserLikesAlbum;
 import org.daniclo.mixstarter.model.UserLikesSong;
 import org.daniclo.mixstarter.util.HibernateUtil;
 import org.hibernate.Session;
@@ -23,7 +22,7 @@ public class UserLikesSongDAOImpl extends GenericDAOImpl<UserLikesSong> implemen
     public UserLikesSong findByUserAndSong(User user, Song song) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<UserLikesSong> value = service.submit(()->{
-            try (Session session = HibernateUtil.getSessionFactory().openSession();){
+            try (Session session = HibernateUtil.getSessionFactory().openSession()){
                 Query<UserLikesSong> query = session.createQuery("from UserLikesSong where user.id = :userID and song.id = :songID",
                                 UserLikesSong.class)
                         .setParameter("userID",user.getId())
